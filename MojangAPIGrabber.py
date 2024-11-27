@@ -94,7 +94,7 @@ class MojangAPIGrabber:
         with open(output_file, 'w') as file_handler:
             file_handler.write("{\"stuff\" :[\n")
             
-            file_handler.write("\t{\"usernames\" :[{\n")
+            file_handler.write("\t{\"usermap\" :[{\n")
             count = len(username_map.keys())
             for key in username_map.keys():
                 count -=1
