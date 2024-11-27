@@ -1,17 +1,23 @@
-{"stuff" :[
-	{"usermap" :[{
-		"158c51b3-175d-4608-bd4e-ac451c491c24": "RuinedMerlin817",
-		"8252c91a-310f-413f-9e66-d02acc230795": "LunarPheonix",
-		"a779b1b8-3079-457a-9cbb-c7d53833ed04": "Mindstormman"
-	}]},
-	{"uuids" :[
-		"158c51b3-175d-4608-bd4e-ac451c491c24",
-		"8252c91a-310f-413f-9e66-d02acc230795",
-		"a779b1b8-3079-457a-9cbb-c7d53833ed04"
-	]},
-	{"usernames" :[
-		"RuinedMerlin817",
-		"LunarPheonix",
-		"Mindstormman"
-	]}
-]}
+{
+    "usermap": {
+        "158c51b3-175d-4608-bd4e-ac451c491c24": "RuinedMerlin817",
+        "8252c91a-310f-413f-9e66-d02acc230795": "LunarPheonix",
+        "a6c56d40-1c7b-43c7-a3b4-bbe10b72ff75": "ElonBucks",
+        "a779b1b8-3079-457a-9cbb-c7d53833ed04": "Mindstormman",
+        "adc76802-d75c-4143-89a6-ede25720ecce": "Yeetoxic"
+    },
+    "uuids": [
+        "158c51b3-175d-4608-bd4e-ac451c491c24",
+        "8252c91a-310f-413f-9e66-d02acc230795",
+        "a6c56d40-1c7b-43c7-a3b4-bbe10b72ff75",
+        "a779b1b8-3079-457a-9cbb-c7d53833ed04",
+        "adc76802-d75c-4143-89a6-ede25720ecce"
+    ],
+    "usernames": [
+        "RuinedMerlin817",
+        "LunarPheonix",
+        "ElonBucks",
+        "Mindstormman",
+        "Yeetoxic"
+    ]
+}

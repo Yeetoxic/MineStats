@@ -1,38 +1,41 @@
 import os
 import requests
+import json
 
 username_map = {}
 
 class MojangAPIGrabber:
-    global username_map
-
     def __init__(self, uuid):
         self.uuid = uuid
-        self.username = "notch"
-        self.folder = os.listdir("playerdata") #TEMP DATA
+        self.username = "notch"  # Default value
+        self.folder = self.get_playerdata_folder()
         self.MojangAPI_URL = f"https://sessionserver.mojang.com/session/minecraft/profile/{uuid}"
-        self.MineskinAPI_URL = f"https://mineskin.eu/helm/{self.username}/100.png"
-        
+        self.skins_folder = "./skins"
+        os.makedirs(self.skins_folder, exist_ok=True)
+
+    def get_playerdata_folder(self):
+        """
+        Reads the 'playerdata' folder and returns a list of UUIDs from the file names.
+        Assumes file names are formatted as <UUID>.dat.
+        """
+        folder_path = "playerdata" # TEMP DATA
+        if not os.path.exists(folder_path):
+            raise FileNotFoundError(f"Folder '{folder_path}' does not exist.")
+        result = []
+        for file in os.listdir(folder_path):
+            if file.endswith(".dat"):
+                result.append(file.split(".")[0])
+        return result
+
 
     def get_minecraft_usernames(self):
-        """
-        Fetches the username history for a given Minecraft UUID using Mojang's API.
-
-        Args:
-            uuid (str): The UUID of the Minecraft user.
-
-        Returns:
-            list: A list of username history, or an error message if the UUID is invalid.
-        """
-        print(f"Debug: Requesting URL: {self.MojangAPI_URL}")  # Debugging
         try:
             response = requests.get(self.MojangAPI_URL)
-            print(f"Debug: Response Status Code: {response.status_code}")  # Debugging
             if response.status_code == 200:
-                name = response.json()
-                self.username = name['name']
-                username_map[self.uuid] = name['name']
-                return name
+                data = response.json()
+                self.username = data['name']
+                username_map[self.uuid] = self.username
+                return data
             elif response.status_code == 404:
                 return "Error: UUID not found. Check if the UUID is correct."
             elif response.status_code == 204:
@@ -40,111 +43,70 @@ class MojangAPIGrabber:
             else:
                 return f"Error: {response.status_code} - {response.reason}"
         except requests.exceptions.RequestException as e:
-            return f"An error occurred: {e}"
-        
+            return f"An error occurred while fetching usernames: {e}"
+
 
     def get_minecraft_skins(self):
-        print(f"Debug: Requesting URL: {self.MineskinAPI_URL}")  # Debugging
         try:
-            # Head of skin
-            self.MineskinAPI_URL = f"https://mineskin.eu/helm/{self.username}/100.png"
-            response = requests.get(self.MineskinAPI_URL)
-            output_file = f"./skins/{self.username}_head.png"
+            head_url = f"https://mineskin.eu/helm/{self.username}/100.png"
+            skin_url = f"https://mineskin.eu/skin/{self.username}"
 
-
-            print(f"Debug: Response Status Code: {response.status_code}")  # Debugging
-            if response.status_code == 200:
-                with open(output_file, "wb") as file:
-                    file.write(response.content)
-                print(f"Image successfully saved as {output_file}")
-
-            # Whole of skin
-            self.MineskinAPI_URL = f"https://mineskin.eu/skin/{self.username}"
-            response = requests.get(self.MineskinAPI_URL)
-            output_file = f"./skins/{self.username}.png"
-
-            print(f"Debug: Response Status Code: {response.status_code}")  # Debugging
-            if response.status_code == 200:
-                with open(output_file, "wb") as file:
-                    file.write(response.content)
-                print(f"Image successfully saved as {output_file}")
-
-
-
-            elif response.status_code == 404:
-                return "Error: UUID not found. Check if the UUID is correct."
-            elif response.status_code == 204:
-                return "No content found. The UUID might not exist."
+            # Download and save head skin
+            head_response = requests.get(head_url)
+            if head_response.status_code == 200:
+                head_file = os.path.join(self.skins_folder, f"{self.username}_head.png")
+                with open(head_file, "wb") as file:
+                    file.write(head_response.content)
+                print(f"Head image successfully saved as {head_file}")
             else:
-                return f"Error: {response.status_code} - {response.reason}"
+                print(f"Error fetching head skin: {head_response.status_code} - {head_response.reason}")
+
+            # Download and save full skin
+            skin_response = requests.get(skin_url)
+            if skin_response.status_code == 200:
+                skin_file = os.path.join(self.skins_folder, f"{self.username}.png")
+                with open(skin_file, "wb") as file:
+                    file.write(skin_response.content)
+                print(f"Skin image successfully saved as {skin_file}")
+            else:
+                print(f"Error fetching full skin: {skin_response.status_code} - {skin_response.reason}")
+
         except requests.exceptions.RequestException as e:
-            return f"An error occurred: {e}"
+            print(f"An error occurred while fetching skins: {e}")
 
-
-    def read_playerdata(self):
-        self.folder = [file.split(".")[0] for file in self.folder]
-        for i in self.folder:
-            if i in self.folder:
-                self.folder.remove(i)
-        return self.folder
-    
 
     def write_playerdata(self):
-        output_file = f"./output_data/usernames.json"
-        with open(output_file, 'w') as file_handler:
-            file_handler.write("{\"stuff\" :[\n")
-            
-            file_handler.write("\t{\"usermap\" :[{\n")
-            count = len(username_map.keys())
-            for key in username_map.keys():
-                count -=1
-                file_handler.write(f'\t\t"{key}": ')
-                file_handler.write(f'"{username_map[key]}"')
-                if count > 0:
-                    file_handler.write(",\n")
-                else:
-                    file_handler.write("\n")
-            file_handler.write("\t}]},\n")
-            
-            file_handler.write("\t{\"uuids\" :[\n")
-            count = len(username_map.keys())
-            for key in username_map.keys():
-                count -=1
-                file_handler.write(f'\t\t"{key}"')
-                if count > 0:
-                    file_handler.write(",\n")
-                else:
-                    file_handler.write("\n")
-            file_handler.write("\t]},\n")
+        output_file = "./output_data/usernames.json"
+        os.makedirs(os.path.dirname(output_file), exist_ok=True)
 
-            file_handler.write("\t{\"usernames\" :[\n")
-            count = len(username_map.keys())
-            for key in username_map.keys():
-                count -=1
-                file_handler.write(f'\t\t"{username_map[key]}"')
-                if count > 0:
-                    file_handler.write(",\n")
-                else:
-                    file_handler.write("\n")
-            file_handler.write("\t]}\n")
-            
-            file_handler.write("]}")
+        data = {
+            "usermap": username_map,
+            "uuids": list(username_map.keys()),
+            "usernames": list(username_map.values())
+        }
+        with open(output_file, "w") as file_handler:
+            json.dump(data, file_handler, indent=4)
+        print(f"Usernames data successfully saved to {output_file}")
 
-        print(username_map)
-            
-    
+
+
 
 # Example usage
 if __name__ == "__main__":
-    uuid = None
-    dummy = MojangAPIGrabber(uuid)
-    for i in dummy.read_playerdata():
-        player = MojangAPIGrabber(i)
-        result = player.get_minecraft_usernames()
-        print(f"{result['name']}\n")
-        player.get_minecraft_skins()
-    
-    dummy.write_playerdata()
-    # print(MojangAPIGrabber.)
-    print(MojangAPIGrabber(i).read_playerdata())
-    
+    try:
+        dummy = MojangAPIGrabber("dummy_uuid")
+        for player_uuid in dummy.folder:
+            try:
+                player = MojangAPIGrabber(player_uuid)
+                result = player.get_minecraft_usernames()
+                if isinstance(result, dict) and "name" in result:
+                    print(f"Username: {result['name']}")
+                    player.get_minecraft_skins()
+                    print("")
+                else:
+                    print(result)
+            except Exception as e:
+                print(f"An error occurred with UUID {player_uuid}: {e}")
+        dummy.write_playerdata()
+    except Exception as main_e:
+        print(f"An error occurred in the main execution: {main_e}")
