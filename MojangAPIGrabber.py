@@ -132,6 +132,11 @@ class MojangAPIGrabber:
                 if "root" in advancement:
                     continue
 
+                # Skip advancements with the "root" tag
+                if "root" in advancement:
+                    # print(f"Skipping root advancement: {advancement}")
+                    continue
+
                 completed_criteria = list(details.get("criteria", {}).keys())
 
                 if advancement in multi_part_advancements:
