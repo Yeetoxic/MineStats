@@ -126,7 +126,7 @@ class MojangAPIGrabber:
 
                 # Skip advancements with the "recipe" tag
                 if "recipe" in advancement:
-                    print(f"Skipping recipe advancement: {advancement}")
+                    # print(f"Skipping recipe advancement: {advancement}")
                     continue
 
                 completed_criteria = list(details.get("criteria", {}).keys())
