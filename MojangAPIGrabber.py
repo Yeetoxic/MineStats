@@ -68,7 +68,7 @@ class MojangAPIGrabber:
             if skin_response.status_code == 200:
                 skin_file = os.path.join(self.skins_folder, f"{self.uuid}.png")
                 with open(skin_file, "wb") as file:
-                    file.write(head_response.content)
+                    file.write(skin_response.content)
                 print(f"Skin image successfully saved as {skin_file}")
             else:
                 print(f"Error fetching full skin: {skin_response.status_code} - {skin_response.reason}")
