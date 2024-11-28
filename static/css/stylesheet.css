@@ -1,0 +1,106 @@
+/* Global styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    margin: 0 auto;
+    padding: 20px;
+    max-width: 900px;  /* Slightly wider container for profile pages */
+    text-align: center;
+}
+
+/* Header style */
+h1 {
+    margin-bottom: 20px;
+    font-size: 2em;
+}
+
+/* Table styling for both index and player pages */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+th {
+    background-color: #e0e0e0;
+}
+
+img {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+}
+
+/* Card layout for different sections (Server Info, World Stats, Player List) */
+.card {
+    margin-bottom: 30px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    border-radius: 8px 8px 0 0;
+}
+
+.card-body {
+    padding: 15px;
+    text-align: left;
+}
+
+/* Styling for the Player Profile Page */
+#skinViewer {
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    display: inline-block;
+    border-radius: 8px;
+}
+
+.player-stats {
+    margin-top: 30px;
+}
+
+.player-stats ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.player-stats li {
+    margin: 10px 0;
+    font-size: 1.1em;
+}
+
+/* Adjustments for mobile responsiveness */
+@media screen and (max-width: 768px) {
+    .container {
+        padding: 15px;
+        max-width: 100%;
+    }
+
+    h1 {
+        font-size: 1.5em;
+    }
+
+    table th, table td {
+        padding: 8px;
+    }
+
+    img {
+        width: 40px;
+        height: 40px;
+    }
+}

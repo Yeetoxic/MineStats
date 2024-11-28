@@ -10,7 +10,7 @@ class MojangAPIGrabber:
         self.username = "notch"  # Default value
         self.folder = self.get_playerdata_folder()
         self.MojangAPI_URL = f"https://sessionserver.mojang.com/session/minecraft/profile/{uuid}"
-        self.skins_folder = "./skins"
+        self.skins_folder = "./static/skins"
         os.makedirs(self.skins_folder, exist_ok=True)
 
     def get_playerdata_folder(self):
@@ -18,7 +18,7 @@ class MojangAPIGrabber:
         Reads the 'playerdata' folder and returns a list of UUIDs from the file names.
         Assumes file names are formatted as <UUID>.dat.
         """
-        folder_path = "playerdata" # TEMP DATA
+        folder_path = "..\world\playerdata"
         if not os.path.exists(folder_path):
             raise FileNotFoundError(f"Folder '{folder_path}' does not exist.")
         result = []
@@ -54,7 +54,7 @@ class MojangAPIGrabber:
             # Download and save head skin
             head_response = requests.get(head_url)
             if head_response.status_code == 200:
-                head_file = os.path.join(self.skins_folder, f"{self.username}_head.png")
+                head_file = os.path.join(self.skins_folder, f"{self.uuid}_head.png")
                 with open(head_file, "wb") as file:
                     file.write(head_response.content)
                 print(f"Head image successfully saved as {head_file}")
@@ -64,7 +64,7 @@ class MojangAPIGrabber:
             # Download and save full skin
             skin_response = requests.get(skin_url)
             if skin_response.status_code == 200:
-                skin_file = os.path.join(self.skins_folder, f"{self.username}.png")
+                skin_file = os.path.join(self.skins_folder, f"{self.uuid}.png")
                 with open(skin_file, "wb") as file:
                     file.write(skin_response.content)
                 print(f"Skin image successfully saved as {skin_file}")
