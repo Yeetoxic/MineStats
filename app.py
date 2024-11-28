@@ -18,6 +18,14 @@ def load_data():
     
     return players
 
+def load_advancements(player_uuid):
+    advancements_file_path = os.path.join(BASE_DIR, 'output_data', f'advancements_report_{player_uuid}.json')
+    try:
+        with open(advancements_file_path, 'r') as f:
+            return json.load(f)
+    except FileNotFoundError:
+        return None
+
 
 @app.route('/')
 def index():
@@ -30,7 +38,21 @@ def player_page(uuid):
     player = next((p for p in players if p["uuid"] == uuid), None)
     if not player:
         return "Player not found", 404
-    return render_template('player.html', player=player)
+    advancements = load_advancements(uuid)
+    return render_template('player.html', player=player, advancements=advancements)
+
+@app.route('/player/<uuid>/advancements')
+def player_advancements(uuid):
+    players = load_data()
+    player = next((p for p in players if p["uuid"] == uuid), None)
+    if not player:
+        return "Player not found", 404
+    
+    # Load the advancements for the player
+    advancements = load_advancements(uuid)
+    
+    return render_template('advancements.html', player=player, advancements=advancements)
+
 
 if __name__ == "__main__":
     app.run(debug=True)

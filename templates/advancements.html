@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ player.username }}'s Advancements</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/stylesheet.css">
+    <style>
+        .container {
+            margin-top: 50px;
+        }
+        .advancement-icon {
+            width: 40px;
+            height: 40px;
+        }
+        .progress {
+            height: 20px;
+        }
+        .progress-bar {
+            font-size: 0.9rem;
+        }
+        .collapse {
+            padding: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Minecraft Server Stats</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="container text-center">
+        <h1 class="mb-4"><img class="player-head" src="{{ url_for('static', filename='skins/' + player['uuid'] + '_head.png') }}" alt="Player Head"> {{ player.username }}'s Advancements</h1>
+        <a href="/player/{{ player.uuid }}" class="btn btn-secondary mb-4">Back to Player Page</a>
+    </div>
+
+    <!-- Advancements Table -->
+    <div class="container">
+        <h2 class="text-center mb-4">Advancements</h2>
+        <table class="table table-striped table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Icon</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                {% for advancement, data in advancements['minecraft_advancements'].items() %}
+                <tr>
+                    <td>
+                        <img src="{{ url_for('static', filename='advancements/' + data.get('icon', 'default-icon.png')) }}" 
+                             alt="Icon" class="advancement-icon">
+                    </td>
+                    <td>
+                        <strong>{{ advancement_id }}</strong><br>
+                        
+                        {{ data.description }}
+                        {% if data.missing_criteria | length > 0 %}
+                            <!-- Progress Bar for Incomplete Advancements -->
+                            <div class="progress mt-2">
+                                <div class="progress-bar bg-warning" 
+                                     role="progressbar" 
+                                     style="width: {{ (data.completed_criteria | length / (data.completed_criteria | length + data.missing_criteria | length)) * 100 }}%;" 
+                                     aria-valuenow="{{ data.completed_criteria | length }}" 
+                                     aria-valuemin="0" 
+                                     aria-valuemax="{{ data.completed_criteria | length + data.missing_criteria | length }}">
+                                    {{ data.completed_criteria | length }}/{{ data.completed_criteria | length + data.missing_criteria | length }}
+                                </div>
+                            </div>
+                        {% else %}
+                            <!-- Mark as Completed -->
+                            <span class="badge bg-success mt-2">Completed</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {{ data.description }}
+                    </td>
+                </tr>
+                
+                
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <p>&copy; 2024 Minecraft Stats. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

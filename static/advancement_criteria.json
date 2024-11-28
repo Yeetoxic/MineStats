@@ -103,7 +103,7 @@
           "zombified_piglin"
         ]
       },
-      "minecraft:nether/hot_tourist_destinations": {
+      "minecraft:nether/explore_nether": {
         "description": "Visit all Nether biomes",
         "criteria": [
           "basalt_deltas",
@@ -113,7 +113,7 @@
           "warped_forest"
         ]
       },
-      "minecraft:husbandry/a_balanced_diet": {
+      "minecraft:husbandry/balanced_diet": {
         "description": "Eat each type of food item",
         "criteria": [
           "apple",

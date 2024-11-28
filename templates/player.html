@@ -15,6 +15,7 @@
         <h1>{{ player.username }}'s Profile</h1>
         <p>UUID: {{ player.uuid }}</p>
 
+
         <!-- Player's Skin 3D Viewer -->
         <div id="skinViewer" class="mb-4" style="width: 300px; height: 400px; border: 1px solid #ddd; margin-bottom: 20px;"></div>
 
@@ -29,7 +30,7 @@
                         <ul class="list-unstyled">
                             <li><strong>Total Playtime:</strong> 100 hours</li>
                             <li><strong>Deaths:</strong> 50</li>
-                            <li><strong>Achievements:</strong> 12/20</li>
+                            <li><a href="/player/{{ player.uuid }}/advancements" class="btn btn-primary">View Advancements</a></li>
                             <li><strong>Last Online:</strong> 3 days ago</li>
                             <li><strong>XP Level:</strong> 30</li>
                             <li><strong>Current Dimension:</strong> Overworld</li>
