@@ -10,7 +10,7 @@ class MojangAPIGrabber:
         self.username = "notch"  # Default value
         self.folder = self.get_playerdata_folder()
         self.MojangAPI_URL = f"https://sessionserver.mojang.com/session/minecraft/profile/{uuid}"
-        self.skins_folder = "./MineStats/static/skins"
+        self.skins_folder = "./static/skins"
         os.makedirs(self.skins_folder, exist_ok=True)
 
 
@@ -78,7 +78,7 @@ class MojangAPIGrabber:
 
 
     def write_playerdata(self):
-        output_file = "./MineStats/output_data/usernames.json"
+        output_file = "./output_data/usernames.json"
         os.makedirs(os.path.dirname(output_file), exist_ok=True)
 
         data = {
@@ -98,8 +98,8 @@ class MojangAPIGrabber:
         Filters out advancements with the recipe tag and separates non-Minecraft advancements.
         """
         advancements_path = f"../world/advancements/{self.uuid}.json"
-        missing_criteria_path = "./MineStats/static/advancement_criteria.json"
-        output_path = f"./MineStats/output_data/advancements_report_{self.uuid}.json"
+        missing_criteria_path = "./static/advancement_criteria.json"
+        output_path = f"./output_data/advancements_report_{self.uuid}.json"
 
         if not os.path.exists(advancements_path):
             print(f"Advancements file for UUID {self.uuid} does not exist.")
