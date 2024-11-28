@@ -10,7 +10,7 @@ class MojangAPIGrabber:
         self.username = "notch"  # Default value
         self.folder = self.get_playerdata_folder()
         self.MojangAPI_URL = f"https://sessionserver.mojang.com/session/minecraft/profile/{uuid}"
-        self.skins_folder = "./static/skins"
+        self.skins_folder = "./MineStats/static/skins"
         os.makedirs(self.skins_folder, exist_ok=True)
 
     def get_playerdata_folder(self):
@@ -18,7 +18,8 @@ class MojangAPIGrabber:
         Reads the 'playerdata' folder and returns a list of UUIDs from the file names.
         Assumes file names are formatted as <UUID>.dat.
         """
-        folder_path = "..\world\playerdata"
+        # Correct path based on the new file system
+        folder_path = "./world/playerdata"
         if not os.path.exists(folder_path):
             raise FileNotFoundError(f"Folder '{folder_path}' does not exist.")
         result = []
@@ -26,7 +27,6 @@ class MojangAPIGrabber:
             if file.endswith(".dat"):
                 result.append(file.split(".")[0])
         return result
-
 
     def get_minecraft_usernames(self):
         try:
@@ -44,7 +44,6 @@ class MojangAPIGrabber:
                 return f"Error: {response.status_code} - {response.reason}"
         except requests.exceptions.RequestException as e:
             return f"An error occurred while fetching usernames: {e}"
-
 
     def get_minecraft_skins(self):
         try:
@@ -66,7 +65,7 @@ class MojangAPIGrabber:
             if skin_response.status_code == 200:
                 skin_file = os.path.join(self.skins_folder, f"{self.uuid}.png")
                 with open(skin_file, "wb") as file:
-                    file.write(skin_response.content)
+                    file.write(head_response.content)
                 print(f"Skin image successfully saved as {skin_file}")
             else:
                 print(f"Error fetching full skin: {skin_response.status_code} - {skin_response.reason}")
@@ -74,9 +73,8 @@ class MojangAPIGrabber:
         except requests.exceptions.RequestException as e:
             print(f"An error occurred while fetching skins: {e}")
 
-
     def write_playerdata(self):
-        output_file = "./output_data/usernames.json"
+        output_file = "./MineStats/output_data/usernames.json"
         os.makedirs(os.path.dirname(output_file), exist_ok=True)
 
         data = {
@@ -87,8 +85,66 @@ class MojangAPIGrabber:
         with open(output_file, "w") as file_handler:
             json.dump(data, file_handler, indent=4)
         print(f"Usernames data successfully saved to {output_file}")
+    
+    def generate_achievement_report(self):
+        """
+        Generate a JSON file for the current UUID that lists all advancements with completed and incomplete criteria,
+        using the external advancement_criteria.json for multi-part advancements.
+        """
+        advancements_path = f"./world/advancements/{self.uuid}.json"
+        missing_criteria_path = "./MineStats/static/advancement_criteria.json"
+        output_path = f"./MineStats/output_data/advancements_report_{self.uuid}.json"
 
+        if not os.path.exists(advancements_path):
+            print(f"Advancements file for UUID {self.uuid} does not exist.")
+            return
 
+        if not os.path.exists(missing_criteria_path):
+            print(f"Advancement criteria file '{missing_criteria_path}' does not exist.")
+            return
+
+        try:
+            with open(advancements_path, "r") as file:
+                advancements_data = json.load(file)
+
+            with open(missing_criteria_path, "r") as file:
+                missing_criteria_data = json.load(file)
+
+            multi_part_advancements = missing_criteria_data.get("multi_part_advancements", {})
+
+            report = {}
+            for advancement, details in advancements_data.items():
+                if not isinstance(details, dict):
+                    print(f"Skipping invalid data for advancement {advancement}: {details}")
+                    continue  # Skip non-dictionary entries
+
+                completed_criteria = list(details.get("criteria", {}).keys())
+
+                if advancement in multi_part_advancements:
+                    total_criteria = multi_part_advancements[advancement]["criteria"]
+                else:
+                    total_criteria = completed_criteria
+
+                missing_criteria = []
+                for criterion in total_criteria:
+                    if criterion not in completed_criteria:
+                        missing_criteria.append(criterion)
+
+                report[advancement] = {
+                    "description": multi_part_advancements.get(advancement, {}).get("description", "No description available"),
+                    "completed_criteria": completed_criteria,
+                    "missing_criteria": missing_criteria,
+                    "completed": details.get("done", False),
+                }
+
+            # Write the report to an output JSON file
+            os.makedirs(os.path.dirname(output_path), exist_ok=True)
+            with open(output_path, "w") as json_file:
+                json.dump(report, json_file, indent=4)
+
+            print(f"Advancement report successfully saved to {output_path}")
+        except Exception as e:
+            print(f"An error occurred while processing advancements for UUID {self.uuid}: {e}")
 
 
 # Example usage
@@ -102,6 +158,9 @@ if __name__ == "__main__":
                 if isinstance(result, dict) and "name" in result:
                     print(f"Username: {result['name']}")
                     player.get_minecraft_skins()
+
+                    # Generate advancement report
+                    player.generate_achievement_report()
                     print("")
                 else:
                     print(result)
