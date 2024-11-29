@@ -1,12 +1,60 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template
 import json
 import os
+from PlayerGrabber import PlayerGrabber
+from MinecraftStatsHandler import MinecraftStatsHandler
 
 app = Flask(__name__)
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
 DATA_FILE_PATH = os.path.join(BASE_DIR, 'output_data', 'usernames.json')
+
+
+def run_initial_processing():
+    """
+    Runs PlayerGrabber and MinecraftStatsHandler to process data when the app starts.
+    """
+    print("Starting initial data processing...")
+
+    # Process player data using PlayerGrabber
+    input_folder = "../world/playerdata"
+    output_folder = "./output_data/playerdata"
+    os.makedirs(output_folder, exist_ok=True)
+    for file in os.listdir(input_folder):
+        if file.endswith(".dat"):
+            input_file = os.path.join(input_folder, file)
+            output_file = os.path.join(output_folder, f"{file.split('.')[0]}.json")
+            grabber = PlayerGrabber(input_file, output_file)
+            grabber.process_data()
+
+    # Process stats and advancements using MinecraftStatsHandler
+    try:
+        dummy = MinecraftStatsHandler("dummy_uuid")
+        for player_uuid in dummy.folder:
+            try:
+                player = MinecraftStatsHandler(player_uuid)
+                result = player.get_minecraft_usernames()
+                if isinstance(result, dict) and "name" in result:
+                    print(f"Username: {result['name']}")
+                    player.get_minecraft_skins()
+
+                    # Generate advancement report
+                    player.generate_achievement_report()
+
+                    # Convert stats to simplified JSON
+                    player.convert_stats_to_simplified_json()
+                    print("")
+                else:
+                    print(result)
+            except Exception as e:
+                print(f"An error occurred with UUID {player_uuid}: {e}")
+        dummy.write_playerdata()
+    except Exception as main_e:
+        print(f"An error occurred in the main execution: {main_e}")
+
+    print("Initial data processing complete.")
+
 
 # Load data from JSON
 def load_data():
@@ -55,4 +103,7 @@ def player_advancements(uuid):
 
 
 if __name__ == "__main__":
+    # Run initial data processing
+    run_initial_processing()
+    # Start the Flask app
     app.run(debug=True)
