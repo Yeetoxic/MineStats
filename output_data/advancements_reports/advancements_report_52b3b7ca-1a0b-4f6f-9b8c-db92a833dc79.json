@@ -1,0 +1,292 @@
+{
+    "minecraft_advancements": {
+        "minecraft:adventure/adventuring_time": {
+            "description": "Discover every biome",
+            "completed_criteria": [
+                "minecraft:badlands",
+                "minecraft:beach",
+                "minecraft:forest",
+                "minecraft:river",
+                "minecraft:swamp",
+                "minecraft:birch_forest",
+                "minecraft:windswept_hills",
+                "minecraft:dripstone_caves",
+                "minecraft:savanna",
+                "minecraft:windswept_savanna",
+                "minecraft:plains"
+            ],
+            "missing_criteria": [
+                "badlands",
+                "bamboo_jungle",
+                "basalt_deltas",
+                "beach",
+                "birch_forest",
+                "cold_ocean",
+                "crimson_forest",
+                "dark_forest",
+                "deep_cold_ocean",
+                "deep_frozen_ocean",
+                "deep_lukewarm_ocean",
+                "deep_ocean",
+                "desert",
+                "dripstone_caves",
+                "end_barrens",
+                "end_highlands",
+                "end_midlands",
+                "eroded_badlands",
+                "flower_forest",
+                "forest",
+                "frozen_ocean",
+                "frozen_river",
+                "grove",
+                "ice_spikes",
+                "jagged_peaks",
+                "jungle",
+                "lukewarm_ocean",
+                "lush_caves",
+                "meadow",
+                "mushroom_fields",
+                "nether_wastes",
+                "old_growth_birch_forest",
+                "old_growth_pine_taiga",
+                "old_growth_spruce_taiga",
+                "plains",
+                "river",
+                "savanna",
+                "savanna_plateau",
+                "small_end_islands",
+                "snowy_beach",
+                "snowy_plains",
+                "snowy_slopes",
+                "soul_sand_valley",
+                "sparse_jungle",
+                "stony_peaks",
+                "stony_shore",
+                "sunflower_plains",
+                "swamp",
+                "taiga",
+                "the_end",
+                "the_void",
+                "warm_ocean",
+                "warped_forest",
+                "windswept_forest",
+                "windswept_gravelly_hills",
+                "windswept_hills",
+                "windswept_savanna",
+                "wooded_badlands"
+            ],
+            "completed": false
+        },
+        "minecraft:husbandry/balanced_diet": {
+            "description": "Eat each type of food item",
+            "completed_criteria": [
+                "mutton",
+                "apple",
+                "bread",
+                "cooked_mutton",
+                "beef",
+                "porkchop"
+            ],
+            "missing_criteria": [
+                "baked_potato",
+                "beetroot",
+                "beetroot_soup",
+                "carrot",
+                "chorus_fruit",
+                "cooked_beef",
+                "cooked_chicken",
+                "cooked_cod",
+                "cooked_porkchop",
+                "cooked_rabbit",
+                "cooked_salmon",
+                "cookie",
+                "dried_kelp",
+                "enchanted_golden_apple",
+                "glow_berries",
+                "golden_apple",
+                "golden_carrot",
+                "honey_bottle",
+                "melon_slice",
+                "mushroom_stew",
+                "poisonous_potato",
+                "potato",
+                "pufferfish",
+                "pumpkin_pie",
+                "rabbit_stew",
+                "raw_cod",
+                "raw_salmon",
+                "rotten_flesh",
+                "spider_eye",
+                "suspicious_stew",
+                "sweet_berries",
+                "tropical_fish"
+            ],
+            "completed": false
+        },
+        "minecraft:story/mine_stone": {
+            "description": "No description available",
+            "completed_criteria": [
+                "get_stone"
+            ],
+            "missing_criteria": [],
+            "completed": true
+        },
+        "minecraft:story/upgrade_tools": {
+            "description": "No description available",
+            "completed_criteria": [
+                "stone_pickaxe"
+            ],
+            "missing_criteria": [],
+            "completed": true
+        },
+        "minecraft:adventure/sleep_in_bed": {
+            "description": "No description available",
+            "completed_criteria": [
+                "slept_in_bed"
+            ],
+            "missing_criteria": [],
+            "completed": true
+        },
+        "minecraft:adventure/kill_all_mobs": {
+            "description": "No description available",
+            "completed_criteria": [
+                "minecraft:skeleton",
+                "minecraft:spider",
+                "minecraft:zombie",
+                "minecraft:creeper"
+            ],
+            "missing_criteria": [],
+            "completed": false
+        },
+        "minecraft:adventure/kill_a_mob": {
+            "description": "No description available",
+            "completed_criteria": [
+                "minecraft:skeleton"
+            ],
+            "missing_criteria": [],
+            "completed": true
+        },
+        "minecraft:story/smelt_iron": {
+            "description": "No description available",
+            "completed_criteria": [
+                "iron"
+            ],
+            "missing_criteria": [],
+            "completed": true
+        },
+        "minecraft:story/iron_tools": {
+            "description": "No description available",
+            "completed_criteria": [
+                "iron_pickaxe"
+            ],
+            "missing_criteria": [],
+            "completed": true
+        },
+        "minecraft:husbandry/breed_an_animal": {
+            "description": "No description available",
+            "completed_criteria": [
+                "bred"
+            ],
+            "missing_criteria": [],
+            "completed": true
+        },
+        "minecraft:husbandry/bred_all_animals": {
+            "description": "No description available",
+            "completed_criteria": [
+                "minecraft:bee"
+            ],
+            "missing_criteria": [],
+            "completed": false
+        },
+        "minecraft:story/obtain_armor": {
+            "description": "No description available",
+            "completed_criteria": [
+                "iron_chestplate"
+            ],
+            "missing_criteria": [],
+            "completed": true
+        }
+    },
+    "non_minecraft_advancements": {
+        "armor_statues:enable": {
+            "description": "No description available",
+            "completed_criteria": [
+                "tick"
+            ],
+            "missing_criteria": [],
+            "completed": true
+        },
+        "vanillatweaks:wandering_trades": {
+            "description": "No description available",
+            "completed_criteria": [
+                "tick"
+            ],
+            "missing_criteria": [],
+            "completed": true
+        },
+        "vanillatweaks:custom_nether_portals": {
+            "description": "No description available",
+            "completed_criteria": [
+                "tick"
+            ],
+            "missing_criteria": [],
+            "completed": true
+        },
+        "vanillatweaks:anti_enderman_grief": {
+            "description": "No description available",
+            "completed_criteria": [
+                "tick"
+            ],
+            "missing_criteria": [],
+            "completed": true
+        },
+        "vanillatweaks:player_head_drops": {
+            "description": "No description available",
+            "completed_criteria": [
+                "tick"
+            ],
+            "missing_criteria": [],
+            "completed": true
+        },
+        "vanillatweaks:anti_ghast_grief": {
+            "description": "No description available",
+            "completed_criteria": [
+                "tick"
+            ],
+            "missing_criteria": [],
+            "completed": true
+        },
+        "vanillatweaks:silence_mobs": {
+            "description": "No description available",
+            "completed_criteria": [
+                "tick"
+            ],
+            "missing_criteria": [],
+            "completed": true
+        },
+        "vanillatweaks:more_effective_tools": {
+            "description": "No description available",
+            "completed_criteria": [
+                "tick"
+            ],
+            "missing_criteria": [],
+            "completed": true
+        },
+        "vanillatweaks:armor_statues": {
+            "description": "No description available",
+            "completed_criteria": [
+                "tick"
+            ],
+            "missing_criteria": [],
+            "completed": true
+        },
+        "vanillatweaks:more_mob_heads": {
+            "description": "No description available",
+            "completed_criteria": [
+                "tick"
+            ],
+            "missing_criteria": [],
+            "completed": true
+        }
+    }
+}

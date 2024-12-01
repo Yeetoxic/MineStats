@@ -1,0 +1,542 @@
+{
+    "foodTickTimer": 0,
+    "AbsorptionAmount": 0.0,
+    "XpTotal": 26,
+    "SelectedItemSlot": 8,
+    "playerGameType": 0,
+    "SpawnX": -1839,
+    "Invulnerable": 0,
+    "SpawnAngle": -97.17536163330078,
+    "SpawnDimension": "minecraft:overworld",
+    "Score": 26,
+    "attributes": [
+        {
+            "base": 0.0,
+            "id": "minecraft:armor"
+        },
+        {
+            "base": 4.5,
+            "id": "minecraft:block_interaction_range"
+        },
+        {
+            "base": 4.0,
+            "id": "minecraft:attack_speed"
+        },
+        {
+            "base": 0.2,
+            "id": "minecraft:submerged_mining_speed"
+        },
+        {
+            "base": 3.0,
+            "id": "minecraft:entity_interaction_range"
+        },
+        {
+            "base": 1.0,
+            "id": "minecraft:attack_damage"
+        },
+        {
+            "base": 1.0,
+            "id": "minecraft:block_break_speed"
+        },
+        {
+            "base": 0.10000000149011612,
+            "id": "minecraft:movement_speed"
+        },
+        {
+            "base": 0.0,
+            "id": "minecraft:oxygen_bonus"
+        },
+        {
+            "base": 0.0,
+            "id": "minecraft:armor_toughness"
+        }
+    ],
+    "Tags": [
+        "collective.firstJoin.firstjoinmessage"
+    ],
+    "UUID": [
+        -2088571991,
+        -1597747396,
+        -1389270224,
+        -320106198
+    ],
+    "XpLevel": 2,
+    "Inventory": [
+        {
+            "count": 1,
+            "Slot": 0,
+            "components": {
+                "minecraft:damage": 29
+            },
+            "id": "minecraft:stone_axe"
+        },
+        {
+            "count": 1,
+            "Slot": 1,
+            "id": "minecraft:rotten_flesh"
+        },
+        {
+            "count": 1,
+            "Slot": 7,
+            "components": {
+                "minecraft:damage": 6
+            },
+            "id": "minecraft:iron_helmet"
+        },
+        {
+            "count": 1,
+            "Slot": 8,
+            "components": {
+                "minecraft:damage": 15
+            },
+            "id": "minecraft:stone_pickaxe"
+        },
+        {
+            "count": 1,
+            "Slot": 9,
+            "id": "minecraft:oak_boat"
+        },
+        {
+            "count": 2,
+            "Slot": 10,
+            "id": "minecraft:iron_ingot"
+        },
+        {
+            "count": 1,
+            "Slot": 11,
+            "components": {
+                "minecraft:damage": 5
+            },
+            "id": "minecraft:stone_pickaxe"
+        },
+        {
+            "count": 1,
+            "Slot": 12,
+            "components": {
+                "minecraft:enchantments": {
+                    "levels": {
+                        "minecraft:fire_protection": 4
+                    }
+                }
+            },
+            "id": "minecraft:leather_helmet"
+        },
+        {
+            "count": 3,
+            "Slot": 13,
+            "id": "minecraft:white_wool"
+        },
+        {
+            "count": 1,
+            "Slot": 14,
+            "components": {
+                "minecraft:damage": 15
+            },
+            "id": "minecraft:wooden_pickaxe"
+        },
+        {
+            "count": 3,
+            "Slot": 15,
+            "id": "minecraft:apple"
+        },
+        {
+            "count": 1,
+            "Slot": 16,
+            "id": "minecraft:stone_pickaxe"
+        },
+        {
+            "count": 1,
+            "Slot": 17,
+            "id": "minecraft:crafting_table"
+        },
+        {
+            "count": 4,
+            "Slot": 18,
+            "id": "minecraft:porkchop"
+        },
+        {
+            "count": 11,
+            "Slot": 19,
+            "id": "minecraft:paper"
+        },
+        {
+            "count": 1,
+            "Slot": 20,
+            "id": "minecraft:kelp"
+        },
+        {
+            "count": 12,
+            "Slot": 21,
+            "id": "minecraft:cobblestone"
+        },
+        {
+            "count": 1,
+            "Slot": 22,
+            "id": "minecraft:dirt"
+        },
+        {
+            "count": 1,
+            "Slot": 23,
+            "id": "minecraft:feather"
+        },
+        {
+            "count": 2,
+            "Slot": 24,
+            "id": "minecraft:arrow"
+        },
+        {
+            "count": 1,
+            "Slot": 27,
+            "id": "minecraft:bone"
+        },
+        {
+            "count": 1,
+            "Slot": 102,
+            "components": {
+                "minecraft:enchantments": {
+                    "levels": {
+                        "minecraft:projectile_protection": 3
+                    }
+                },
+                "minecraft:damage": 6
+            },
+            "id": "minecraft:leather_chestplate"
+        },
+        {
+            "count": 1,
+            "Slot": 103,
+            "id": "minecraft:iron_helmet"
+        }
+    ],
+    "XpP": 0.9090909957885742,
+    "foodLevel": 8,
+    "LastDeathLocation": {
+        "pos": [
+            -1892,
+            71,
+            -1349
+        ],
+        "dimension": "minecraft:overworld"
+    },
+    "EnderItems": [],
+    "Motion": [
+        -0.00653699859360035,
+        -0.0784000015258789,
+        -0.0045467227702952594
+    ],
+    "Fire": -20,
+    "foodExhaustionLevel": 1.6920063495635986,
+    "seenCredits": 0,
+    "DeathTime": 0,
+    "recipeBook": {
+        "recipes": [
+            "minecraft:cooked_chicken_from_smoking",
+            "minecraft:heavy_weighted_pressure_plate",
+            "minecraft:oak_trapdoor",
+            "minecraft:cobblestone_slab_from_cobblestone_stonecutting",
+            "minecraft:white_carpet",
+            "minecraft:stone_sword",
+            "minecraft:iron_trapdoor",
+            "minecraft:iron_sword",
+            "minecraft:furnace",
+            "minecraft:iron_axe",
+            "minecraft:dried_kelp_from_smoking",
+            "minecraft:wooden_axe",
+            "minecraft:stone_shovel",
+            "minecraft:shears",
+            "minecraft:cobblestone_wall_from_cobblestone_stonecutting",
+            "minecraft:iron_leggings",
+            "minecraft:iron_pickaxe",
+            "minecraft:minecart",
+            "minecraft:oak_chest_boat",
+            "minecraft:iron_boots",
+            "minecraft:iron_bars",
+            "minecraft:cherry_boat",
+            "minecraft:diorite_wall",
+            "minecraft:polished_diorite_slab_from_diorite_stonecutting",
+            "minecraft:iron_helmet",
+            "dropper_to_dispenser:dispenser",
+            "minecraft:wooden_sword",
+            "minecraft:iron_nugget",
+            "minecraft:mangrove_chest_boat",
+            "minecraft:bamboo_chest_raft",
+            "slabs_stairs_to_block:slabs/diorite",
+            "slabs_stairs_to_block:slabs/oak_planks",
+            "minecraft:cobblestone_stairs",
+            "minecraft:white_banner",
+            "minecraft:hopper",
+            "minecraft:dried_kelp_from_smelting",
+            "minecraft:cooked_mutton_from_smoking",
+            "minecraft:arrow",
+            "minecraft:cooked_chicken",
+            "minecraft:iron_hoe",
+            "minecraft:birch_chest_boat",
+            "minecraft:smithing_table",
+            "minecraft:cooked_beef_from_smoking",
+            "minecraft:diorite_stairs",
+            "minecraft:birch_boat",
+            "minecraft:oak_pressure_plate",
+            "minecraft:iron_chestplate",
+            "minecraft:wooden_shovel",
+            "minecraft:bucket",
+            "minecraft:cooked_beef_from_campfire_cooking",
+            "minecraft:iron_shovel",
+            "minecraft:acacia_boat",
+            "minecraft:jungle_boat",
+            "minecraft:cobblestone_stairs_from_cobblestone_stonecutting",
+            "minecraft:cooked_mutton",
+            "minecraft:oak_planks",
+            "minecraft:iron_nugget_from_smelting",
+            "minecraft:dark_oak_chest_boat",
+            "minecraft:cooked_mutton_from_campfire_cooking",
+            "minecraft:slabs/diorite_slab",
+            "minecraft:crossbow",
+            "minecraft:andesite",
+            "minecraft:cobblestone_wall",
+            "minecraft:oak_sign",
+            "minecraft:stone",
+            "minecraft:cartography_table",
+            "minecraft:oak_stairs",
+            "minecraft:shield",
+            "minecraft:ladder",
+            "minecraft:bamboo_raft",
+            "minecraft:stone_axe",
+            "minecraft:oak_door",
+            "minecraft:spruce_boat",
+            "minecraft:cooked_chicken_from_campfire_cooking",
+            "minecraft:chest",
+            "minecraft:book",
+            "minecraft:dried_kelp_from_campfire_cooking",
+            "minecraft:spruce_chest_boat",
+            "minecraft:oak_boat",
+            "minecraft:slabs/cobblestone_slab",
+            "minecraft:diorite_stairs_from_diorite_stonecutting",
+            "minecraft:oak_fence_gate",
+            "minecraft:wooden_pickaxe",
+            "minecraft:cooked_beef",
+            "minecraft:campfire",
+            "minecraft:cooked_porkchop_from_smoking",
+            "minecraft:barrel",
+            "slabs_stairs_to_block:stairs/oak_planks",
+            "slabs_stairs_to_block:stairs/diorite",
+            "minecraft:cobblestone_slab",
+            "minecraft:stick",
+            "minecraft:cake",
+            "minecraft:oak_slab",
+            "minecraft:iron_nugget_from_blasting",
+            "minecraft:iron_door",
+            "minecraft:wooden_hoe",
+            "minecraft:torch",
+            "minecraft:painting",
+            "minecraft:mangrove_boat",
+            "minecraft:dark_oak_boat",
+            "minecraft:bone_meal",
+            "minecraft:white_bed",
+            "minecraft:oak_wood",
+            "minecraft:diorite_wall_from_diorite_stonecutting",
+            "minecraft:jungle_chest_boat",
+            "minecraft:acacia_chest_boat",
+            "minecraft:diorite_slab_from_diorite_stonecutting",
+            "minecraft:crafting_table",
+            "minecraft:chain",
+            "minecraft:stone_hoe",
+            "minecraft:diorite_slab",
+            "minecraft:oak_fence",
+            "slabs_stairs_to_block:slabs/cobblestone",
+            "slabs_stairs_to_block:stairs/cobblestone",
+            "minecraft:cherry_chest_boat",
+            "minecraft:oak_button",
+            "minecraft:iron_block",
+            "minecraft:polished_diorite",
+            "minecraft:lantern",
+            "minecraft:charcoal",
+            "minecraft:stone_pickaxe",
+            "minecraft:polished_diorite_from_diorite_stonecutting",
+            "minecraft:lever",
+            "minecraft:cooked_porkchop_from_campfire_cooking",
+            "minecraft:polished_diorite_stairs_from_diorite_stonecutting",
+            "minecraft:cooked_porkchop"
+        ],
+        "isGuiOpen": 0,
+        "toBeDisplayed": [
+            "minecraft:cooked_chicken_from_smoking",
+            "minecraft:heavy_weighted_pressure_plate",
+            "minecraft:oak_trapdoor",
+            "minecraft:cobblestone_slab_from_cobblestone_stonecutting",
+            "minecraft:white_carpet",
+            "minecraft:stone_sword",
+            "minecraft:iron_trapdoor",
+            "minecraft:iron_sword",
+            "minecraft:furnace",
+            "minecraft:iron_axe",
+            "minecraft:dried_kelp_from_smoking",
+            "minecraft:wooden_axe",
+            "minecraft:stone_shovel",
+            "minecraft:shears",
+            "minecraft:cobblestone_wall_from_cobblestone_stonecutting",
+            "minecraft:iron_leggings",
+            "minecraft:iron_pickaxe",
+            "minecraft:minecart",
+            "minecraft:oak_chest_boat",
+            "minecraft:iron_boots",
+            "minecraft:iron_bars",
+            "minecraft:cherry_boat",
+            "minecraft:diorite_wall",
+            "minecraft:polished_diorite_slab_from_diorite_stonecutting",
+            "minecraft:iron_helmet",
+            "dropper_to_dispenser:dispenser",
+            "minecraft:wooden_sword",
+            "minecraft:iron_nugget",
+            "minecraft:mangrove_chest_boat",
+            "minecraft:bamboo_chest_raft",
+            "slabs_stairs_to_block:slabs/diorite",
+            "slabs_stairs_to_block:slabs/oak_planks",
+            "minecraft:cobblestone_stairs",
+            "minecraft:white_banner",
+            "minecraft:hopper",
+            "minecraft:dried_kelp_from_smelting",
+            "minecraft:cooked_mutton_from_smoking",
+            "minecraft:arrow",
+            "minecraft:cooked_chicken",
+            "minecraft:iron_hoe",
+            "minecraft:birch_chest_boat",
+            "minecraft:smithing_table",
+            "minecraft:cooked_beef_from_smoking",
+            "minecraft:diorite_stairs",
+            "minecraft:birch_boat",
+            "minecraft:oak_pressure_plate",
+            "minecraft:iron_chestplate",
+            "minecraft:wooden_shovel",
+            "minecraft:bucket",
+            "minecraft:cooked_beef_from_campfire_cooking",
+            "minecraft:iron_shovel",
+            "minecraft:acacia_boat",
+            "minecraft:jungle_boat",
+            "minecraft:cobblestone_stairs_from_cobblestone_stonecutting",
+            "minecraft:cooked_mutton",
+            "minecraft:oak_planks",
+            "minecraft:iron_nugget_from_smelting",
+            "minecraft:dark_oak_chest_boat",
+            "minecraft:cooked_mutton_from_campfire_cooking",
+            "minecraft:slabs/diorite_slab",
+            "minecraft:crossbow",
+            "minecraft:andesite",
+            "minecraft:cobblestone_wall",
+            "minecraft:oak_sign",
+            "minecraft:stone",
+            "minecraft:cartography_table",
+            "minecraft:oak_stairs",
+            "minecraft:shield",
+            "minecraft:ladder",
+            "minecraft:bamboo_raft",
+            "minecraft:stone_axe",
+            "minecraft:oak_door",
+            "minecraft:spruce_boat",
+            "minecraft:cooked_chicken_from_campfire_cooking",
+            "minecraft:chest",
+            "minecraft:book",
+            "minecraft:dried_kelp_from_campfire_cooking",
+            "minecraft:spruce_chest_boat",
+            "minecraft:oak_boat",
+            "minecraft:slabs/cobblestone_slab",
+            "minecraft:diorite_stairs_from_diorite_stonecutting",
+            "minecraft:oak_fence_gate",
+            "minecraft:wooden_pickaxe",
+            "minecraft:cooked_beef",
+            "minecraft:campfire",
+            "minecraft:cooked_porkchop_from_smoking",
+            "minecraft:barrel",
+            "slabs_stairs_to_block:stairs/oak_planks",
+            "slabs_stairs_to_block:stairs/diorite",
+            "minecraft:cobblestone_slab",
+            "minecraft:stick",
+            "minecraft:cake",
+            "minecraft:oak_slab",
+            "minecraft:iron_nugget_from_blasting",
+            "minecraft:iron_door",
+            "minecraft:wooden_hoe",
+            "minecraft:torch",
+            "minecraft:painting",
+            "minecraft:mangrove_boat",
+            "minecraft:dark_oak_boat",
+            "minecraft:bone_meal",
+            "minecraft:white_bed",
+            "minecraft:oak_wood",
+            "minecraft:diorite_wall_from_diorite_stonecutting",
+            "minecraft:jungle_chest_boat",
+            "minecraft:acacia_chest_boat",
+            "minecraft:diorite_slab_from_diorite_stonecutting",
+            "minecraft:crafting_table",
+            "minecraft:chain",
+            "minecraft:stone_hoe",
+            "minecraft:diorite_slab",
+            "minecraft:oak_fence",
+            "slabs_stairs_to_block:slabs/cobblestone",
+            "slabs_stairs_to_block:stairs/cobblestone",
+            "minecraft:cherry_chest_boat",
+            "minecraft:oak_button",
+            "minecraft:iron_block",
+            "minecraft:polished_diorite",
+            "minecraft:lantern",
+            "minecraft:charcoal",
+            "minecraft:stone_pickaxe",
+            "minecraft:polished_diorite_from_diorite_stonecutting",
+            "minecraft:lever",
+            "minecraft:cooked_porkchop_from_campfire_cooking",
+            "minecraft:polished_diorite_stairs_from_diorite_stonecutting",
+            "minecraft:cooked_porkchop"
+        ],
+        "isSmokerGuiOpen": 0,
+        "isFurnaceFilteringCraftable": 0,
+        "isFurnaceGuiOpen": 0,
+        "isBlastingFurnaceFilteringCraftable": 0,
+        "isBlastingFurnaceGuiOpen": 0,
+        "isFilteringCraftable": 0,
+        "isSmokerFilteringCraftable": 0
+    },
+    "OnGround": 1,
+    "spawn_extra_particles_on_fall": 0,
+    "Brain": {
+        "memories": {}
+    },
+    "Dimension": "minecraft:overworld",
+    "abilities": {
+        "walkSpeed": 0.10000000149011612,
+        "instabuild": 0,
+        "flying": 0,
+        "flySpeed": 0.05000000074505806,
+        "mayfly": 0,
+        "invulnerable": 0,
+        "mayBuild": 1
+    },
+    "Rotation": [
+        142.87632751464844,
+        22.034337997436523
+    ],
+    "HurtByTimestamp": 863,
+    "foodSaturationLevel": 0.0,
+    "XpSeed": 0,
+    "Air": 300,
+    "SpawnY": 67,
+    "SpawnZ": -1361,
+    "DataVersion": 4082,
+    "FallDistance": 0.0,
+    "SleepTimer": 0,
+    "FallFlying": 0,
+    "warden_spawn_tracker": {
+        "ticks_since_last_warning": 2770,
+        "cooldown_ticks": 0,
+        "warning_level": 0
+    },
+    "HurtTime": 0,
+    "SpawnForced": 0,
+    "Health": 17.66666603088379,
+    "Pos": [
+        -2051.715727617671,
+        71.0,
+        -1504.9905632145042
+    ],
+    "current_impulse_context_reset_grace_time": 0,
+    "PortalCooldown": 0,
+    "ignore_fall_damage_from_current_explosion": 0
+}

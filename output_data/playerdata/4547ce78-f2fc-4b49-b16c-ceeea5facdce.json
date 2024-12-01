@@ -1,0 +1,89 @@
+{
+    "seenCredits": 0,
+    "DeathTime": 0,
+    "foodTickTimer": 0,
+    "recipeBook": {
+        "recipes": [],
+        "isGuiOpen": 0,
+        "toBeDisplayed": [],
+        "isSmokerGuiOpen": 0,
+        "isFurnaceFilteringCraftable": 0,
+        "isFurnaceGuiOpen": 0,
+        "isBlastingFurnaceFilteringCraftable": 0,
+        "isBlastingFurnaceGuiOpen": 0,
+        "isFilteringCraftable": 0,
+        "isSmokerFilteringCraftable": 0
+    },
+    "OnGround": 0,
+    "AbsorptionAmount": 0.0,
+    "XpTotal": 0,
+    "spawn_extra_particles_on_fall": 0,
+    "playerGameType": 0,
+    "Invulnerable": 0,
+    "SelectedItemSlot": 0,
+    "Brain": {
+        "memories": {}
+    },
+    "Dimension": "minecraft:overworld",
+    "abilities": {
+        "walkSpeed": 0.10000000149011612,
+        "instabuild": 0,
+        "flying": 0,
+        "flySpeed": 0.05000000074505806,
+        "mayfly": 0,
+        "invulnerable": 0,
+        "mayBuild": 1
+    },
+    "Score": 0,
+    "Rotation": [
+        0.0,
+        0.0
+    ],
+    "HurtByTimestamp": 0,
+    "attributes": [
+        {
+            "base": 0.10000000149011612,
+            "id": "minecraft:movement_speed"
+        }
+    ],
+    "foodSaturationLevel": 5.0,
+    "Air": 300,
+    "EnderItems": [],
+    "XpSeed": 0,
+    "foodLevel": 20,
+    "UUID": [
+        1162333816,
+        -218346679,
+        -1318269202,
+        -1510289970
+    ],
+    "XpLevel": 0,
+    "Inventory": [],
+    "Motion": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "FallDistance": 0.0,
+    "DataVersion": 4082,
+    "SleepTimer": 0,
+    "XpP": 0.0,
+    "warden_spawn_tracker": {
+        "ticks_since_last_warning": 0,
+        "cooldown_ticks": 0,
+        "warning_level": 0
+    },
+    "current_impulse_context_reset_grace_time": 0,
+    "Pos": [
+        -58.5,
+        67.0,
+        -19.5
+    ],
+    "Health": 20.0,
+    "HurtTime": 0,
+    "FallFlying": 0,
+    "Fire": -20,
+    "ignore_fall_damage_from_current_explosion": 0,
+    "PortalCooldown": 0,
+    "foodExhaustionLevel": 0.0
+}

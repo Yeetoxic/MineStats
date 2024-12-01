@@ -27,15 +27,55 @@
                         Server Stats
                     </div>
                     <div class="card-body">
-                        <ul class="list-unstyled">
-                            <li><strong>Total Playtime:</strong> 100 hours</li>
-                            <li><strong>Deaths:</strong> 50</li>
-                            <li><a href="/player/{{ player.uuid }}/advancements" class="btn btn-primary">View Advancements</a></li>
-                            <li><strong>Last Online:</strong> 3 days ago</li>
-                            <li><strong>XP Level:</strong> 30</li>
-                            <li><strong>Current Dimension:</strong> Overworld</li>
-                            <li><strong>Spawnpoint:</strong> 0, 60, 0</li>
+                        <ul>
+                            <li><strong>Animals Bred:</strong> {{ stats.get('stats', {}).get('minecraft:custom', {}).get('minecraft:animals_bred', 0) }}</li>
+                            <li><strong>Barrels Opened:</strong> {{ stats.get('stats', {}).get('minecraft:custom', {}).get('minecraft:open_barrel', 0) }}</li>
+                            <li><strong>Bells Rung:</strong> {{ stats.get('stats', {}).get('minecraft:custom', {}).get('minecraft:bell_ring', 0) }}</li>
+                            <li><strong>Cake Slices Eaten:</strong> {{ stats.get('stats', {}).get('minecraft:custom', {}).get('minecraft:eat_cake_slice', 0) }}</li>
+                            <li><strong>Chests Opened:</strong> {{ stats.get('stats', {}).get('minecraft:custom', {}).get('minecraft:open_chest', 0) }}</li>
+                            <li><strong>Damage Absorbed:</strong> {{ (stats.get('stats', {}).get('minecraft:custom', {}).get('minecraft:damage_absorbed', 0) / 10) | round(2) }} hearts</li>
+                            <li><strong>Damage Blocked By Shield:</strong> {{ (stats.get('stats', {}).get('minecraft:custom', {}).get('minecraft:damage_blocked_by_shield', 0) / 10) | round(2) }} hearts</li>
+                            <li><strong>Damage Dealt:</strong> {{ (stats.get('stats', {}).get('minecraft:custom', {}).get('minecraft:damage_dealt', 0) / 10) | round(2) }} hearts</li>
+                            <li><strong>Damage Resisted:</strong> {{ (stats.get('stats', {}).get('minecraft:custom', {}).get('minecraft:damage_resisted', 0) / 10) | round(2) }} hearts</li>
+                            <li><strong>Damage Taken:</strong> {{ (stats.get('stats', {}).get('minecraft:custom', {}).get('minecraft:damage_taken', 0) / 10) | round(2) }} hearts</li>
+                            <li><strong>Dispensers Searched:</strong> {{ stats.get('stats', {}).get('minecraft:custom', {}).get('minecraft:inspect_dispenser', 0) }}</li>
+                            <li><strong>Distance Climbed:</strong> {{ (stats.get('stats', {}).get('minecraft:custom', {}).get('minecraft:climb_one_cm', 0) / 100 / 1000) | round(2) }} kilometers</li>
+                            <li><strong>Distance Crouched:</strong> {{ (stats.get('stats', {}).get('minecraft:custom', {}).get('minecraft:crouch_one_cm', 0) / 100 / 1000) | round(2) }} kilometers</li>
+                            <li><strong>Distance Fallen:</strong> {{ (stats.get('stats', {}).get('minecraft:custom', {}).get('minecraft:fall_one_cm', 0) / 100 / 1000) | round(2) }} kilometers</li>
+                            <li><strong>Distance Flown:</strong> {{ (stats.get('stats', {}).get('minecraft:custom', {}).get('minecraft:fly_one_cm', 0) / 100 / 1000) | round(2) }} kilometers</li>
+                            <li><strong>Distance Sprinted:</strong> {{ (stats.get('stats', {}).get('minecraft:custom', {}).get('minecraft:sprint_one_cm', 0) / 100 / 1000) | round(2) }} kilometers</li>
+                            <li><strong>Distance Swum:</strong> {{ (stats.get('stats', {}).get('minecraft:custom', {}).get('minecraft:swim_one_cm', 0) / 100 / 1000) | round(2) }} kilometers</li>
+                            <li><strong>Distance Walked:</strong> {{ (stats.get('stats', {}).get('minecraft:custom', {}).get('minecraft:walk_one_cm', 0) / 100 / 1000) | round(2) }} kilometers</li>
+                            <li><strong>Distance Walked on Water:</strong> {{ (stats.get('stats', {}).get('minecraft:custom', {}).get('minecraft:walk_on_water_one_cm', 0) / 100 / 1000) | round(2) }} kilometers</li>
+                            <li><strong>Distance Walked under Water:</strong> {{ (stats.get('stats', {}).get('minecraft:custom', {}).get('minecraft:walk_under_water_one_cm', 0) / 100 / 1000) | round(2) }} kilometers</li>
+                            <li><strong>Distance by Boat:</strong> {{ (stats.get('stats', {}).get('minecraft:custom', {}).get('minecraft:boat_one_cm', 0) / 100 / 1000) | round(2) }} kilometers</li>
+                            <li><strong>Distance by Minecart:</strong> {{ (stats.get('stats', {}).get('minecraft:custom', {}).get('minecraft:minecart_one_cm', 0) / 100 / 1000) | round(2) }} kilometers</li>
+                            <li><strong>Ender Chests Opened:</strong> {{ stats.get('stats', {}).get('minecraft:custom', {}).get('minecraft:open_enderchest', 0) }}</li>
+                            <li><strong>Games Quit:</strong> {{ stats.get('stats', {}).get('minecraft:custom', {}).get('minecraft:leave_game', 0) }}</li>
+                            <li><strong>Hoppers Searched:</strong> {{ stats.get('stats', {}).get('minecraft:custom', {}).get('minecraft:inspect_hopper', 0) }}</li>
+                            <li><strong>Interactions with Anvil:</strong> {{ stats.get('stats', {}).get('minecraft:custom', {}).get('minecraft:interact_with_anvil', 0) }}</li>
+                            <li><strong>Interactions with Blast Furnace:</strong> {{ stats.get('stats', {}).get('minecraft:custom', {}).get('minecraft:interact_with_blast_furnace', 0) }}</li>
+                            <li><strong>Interactions with Brewing Stand:</strong> {{ stats.get('stats', {}).get('minecraft:custom', {}).get('minecraft:interact_with_brewingstand', 0) }}</li>
+                            <li><strong>Interactions with Crafting Table:</strong> {{ stats.get('stats', {}).get('minecraft:custom', {}).get('minecraft:interact_with_crafting_table', 0) }}</li>
+                            <li><strong>Interactions with Furnace:</strong> {{ stats.get('stats', {}).get('minecraft:custom', {}).get('minecraft:interact_with_furnace', 0) }}</li>
+                            <li><strong>Interactions with Grindstone:</strong> {{ stats.get('stats', {}).get('minecraft:custom', {}).get('minecraft:interact_with_grindstone', 0) }}</li>
+                            <li><strong>Interactions with Smoker:</strong> {{ stats.get('stats', {}).get('minecraft:custom', {}).get('minecraft:interact_with_smoker', 0) }}</li>
+                            <li><strong>Items Dropped:</strong> {{ stats.get('stats', {}).get('minecraft:custom', {}).get('minecraft:drop', 0) }}</li>
+                            <li><strong>Items Enchanted:</strong> {{ stats.get('stats', {}).get('minecraft:custom', {}).get('minecraft:enchant_item', 0) }}</li>
+                            <li><strong>Jumps:</strong> {{ stats.get('stats', {}).get('minecraft:custom', {}).get('minecraft:jump', 0) }}</li>
+                            <li><strong>Mob Kills:</strong> {{ stats.get('stats', {}).get('minecraft:custom', {}).get('minecraft:mob_kills', 0) }}</li>
+                            <li><strong>Deaths:</strong> {{ stats.get('stats', {}).get('minecraft:custom', {}).get('minecraft:deaths', 0) }}</li>
+                            <li><strong>Player Kills:</strong> {{ stats.get('stats', {}).get('minecraft:custom', {}).get('minecraft:player_kills', 0) }}</li>
+                            <li><strong>Sneak Time:</strong>     {{ (stats.get('stats', {}).get('minecraft:custom', {}).get('minecraft:sneak_time', 0) / 20 / 60 / 60) | round(2) }} hours</li>
+                            <li><strong>Talked to Villagers:</strong> {{ stats.get('stats', {}).get('minecraft:custom', {}).get('minecraft:talked_to_villager', 0) }}</li>
+                            <li><strong>Time Played:</strong>     {{ (stats.get('stats', {}).get('minecraft:custom', {}).get('minecraft:play_time', 0) / 20 / 60 / 60 / 24) | round(2) }} days</li>
+                            <li><strong>Time Since Last Death:</strong>     {{ (stats.get('stats', {}).get('minecraft:custom', {}).get('minecraft:time_since_death', 0) / 20 / 60 / 60) | round(2) }} hours</li>
+                            <li><strong>Time Since Last Rest:</strong>     {{ (stats.get('stats', {}).get('minecraft:custom', {}).get('minecraft:time_since_rest', 0) / 20 / 60 / 60) | round(2) }} hours</li>
+                            <li><strong>Time with World Open:</strong>     {{ (stats.get('stats', {}).get('minecraft:custom', {}).get('minecraft:total_world_time', 0) / 20 / 60 / 60 / 24) | round(2) }} days</li>
+                            <li><strong>Times Slept in a Bed:</strong> {{ stats.get('stats', {}).get('minecraft:custom', {}).get('minecraft:sleep_in_bed', 0) }}</li>
+                            <li><strong>Traded with Villagers:</strong> {{ stats.get('stats', {}).get('minecraft:custom', {}).get('minecraft:traded_with_villager', 0) }}</li>
                         </ul>
+                        
                     </div>
                 </div>
             </div>

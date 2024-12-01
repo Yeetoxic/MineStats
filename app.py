@@ -5,10 +5,13 @@ from PlayerGrabber import PlayerGrabber
 from MinecraftStatsHandler import MinecraftStatsHandler
 import threading
 import time
+from datetime import datetime
 
 app = Flask(__name__)
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+
+STATS_DIR = os.path.join(BASE_DIR, 'output_data', 'simplified_stats')
 
 DATA_FILE_PATH = os.path.join(BASE_DIR, 'output_data', 'usernames.json')
 
@@ -78,6 +81,13 @@ def load_data():
     
     return players
 
+def load_player_stats(uuid):
+    stats_file = os.path.join(STATS_DIR, f"simplified_stats_{uuid}.json")
+    if os.path.exists(stats_file):
+        with open(stats_file, 'r') as f:
+            return json.load(f)
+    return None
+
 def load_advancements(player_uuid):
     advancements_file_path = os.path.join(BASE_DIR, 'output_data/advancements_reports', f'advancements_report_{player_uuid}.json')
     try:
@@ -86,11 +96,30 @@ def load_advancements(player_uuid):
     except FileNotFoundError:
         return None
 
+def get_uptime():
+    try:
+        # Correct the file path by joining BASE_DIR and the relative path
+        uptime_file_path = os.path.join(BASE_DIR, '..', 'server_uptime.json')
+        
+        with open(uptime_file_path, 'r') as f:
+            data = f.read().strip()  # Read the content and remove extra spaces/newlines
+            # Define the format of the date-time string from the file
+            startup_time = datetime.strptime(data, "%Y-%m-%d %I:%M %p")
+            current_time = datetime.now()
+            uptime_seconds = (current_time - startup_time).total_seconds()
+            return uptime_seconds / 3600  # Convert to hours
+    except (FileNotFoundError, ValueError) as e:
+        print(f"Error: Uptime data is missing or corrupted. {e}")
+        return 0  # Return 0 if there is an error or no file
+
+
+
 
 @app.route('/')
 def index():
+    uptime_hours = get_uptime()
     players = load_data()
-    return render_template('index.html', players=players)
+    return render_template('index.html', players=players, uptime=uptime_hours)
 
 @app.route('/player/<uuid>')
 def player_page(uuid):
@@ -98,8 +127,26 @@ def player_page(uuid):
     player = next((p for p in players if p["uuid"] == uuid), None)
     if not player:
         return "Player not found", 404
+    
+    stats = None
+    try:
+        stats = load_player_stats(uuid)
+    except FileNotFoundError:
+        statrs = None
+        
+    if stats is None:
+        stats = {
+            "minecraft:custom": {
+                "minecraft:play_time": 100,
+                "minecraft:jump": 0,
+                "minecraft:walk_one_cm": 0,
+                "minecraft:fly_one_cm": 0
+            }
+        }
+        print(f"Stats file not found for {uuid}, using default.")
+    
     advancements = load_advancements(uuid)
-    return render_template('player.html', player=player, advancements=advancements)
+    return render_template('player.html', player=player, stats=stats, advancements=advancements)
 
 @app.route('/player/<uuid>/advancements')
 def player_advancements(uuid):
