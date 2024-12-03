@@ -218,21 +218,18 @@ class MinecraftStatsHandler:
             with open(stats_path, "r") as file:
                 stats_data = json.load(file)
 
-            # Create a new simplified structure, excluding block and item stats
+            # Filter out everything except the 'minecraft:custom' category under 'stats'
             simplified_stats = {
-                key: value for key, value in stats_data.items() 
-                if not key.startswith("minecraft:used") and 
-                not key.startswith("minecraft:mined") and 
-                not key.startswith("minecraft:crafted") and  
-                not key.startswith("minecraft:picked_up") and 
-                not key.startswith("minecraft:dropped") and 
-                not key.startswith("minecraft:broken")
+                "stats": {
+                    "minecraft:custom": stats_data.get("stats", {}).get("minecraft:custom", {})
+                }
             }
 
             # Write the simplified stats to a JSON file
             os.makedirs(os.path.dirname(output_path), exist_ok=True)
             with open(output_path, "w") as json_file:
                 json.dump(simplified_stats, json_file, indent=4)
+                
 
             print(f"Simplified stats successfully saved to {output_path}")
         except Exception as e:
