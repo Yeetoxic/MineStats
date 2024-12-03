@@ -131,13 +131,16 @@ class MinecraftStatsHandler:
                     # print(f"Skipping recipe advancement: {advancement}")
                     continue
                 
-                # if "root" in advancement:
-                #     continue
+                if not "minecraft" in advancement:
+                    continue
+                
+                if "root" in advancement:
+                    continue
 
-                # # Skip advancements with the "root" tag
-                # if "root" in advancement:
-                #     # print(f"Skipping root advancement: {advancement}")
-                #     continue
+                # Skip advancements with the "root" tag
+                if "root" in advancement:
+                    # print(f"Skipping root advancement: {advancement}")
+                    continue
 
                 if advancement in multi_part_advancements:
                     # print(list(details["criteria"].keys()))
