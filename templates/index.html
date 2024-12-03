@@ -26,6 +26,23 @@
             font-size: 1.1rem;
         }
     </style>
+    <script>
+        // Function to fetch uptime and update the page
+        async function updateUptime() {
+            try {
+                const response = await fetch('/uptime');
+                const data = await response.json();
+                document.getElementById('uptime').innerText = data.uptime;
+            } catch (error) {
+                console.error("Error fetching uptime:", error);
+                document.getElementById('uptime').innerText = "Error fetching uptime.";
+            }
+        }
+
+        // Refresh uptime every second
+        setInterval(updateUptime, 1000);
+        window.onload = updateUptime; // Initial fetch on page load
+    </script>
 </head>
 <body>
     <!-- Navbar -->
@@ -95,7 +112,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Uptime</h5>
-                        <p class="card-text">Uptime: <strong>{{ uptime|round(2) }} hours</strong></p>
+                        <p class="card-text"><strong><span id="uptime">Loading...</span></strong></p>
                     </div>
                 </div>
             </div>

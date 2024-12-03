@@ -1,11 +1,11 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify
 import json
 import os
 from PlayerGrabber import PlayerGrabber
 from MinecraftStatsHandler import MinecraftStatsHandler
 import threading
 import time
-from datetime import datetime
+from datetime import datetime, timedelta
 
 app = Flask(__name__)
 
@@ -96,30 +96,43 @@ def load_advancements(player_uuid):
     except FileNotFoundError:
         return None
 
-def get_uptime():
+# Server Clock
+FILE_PATH = "../latest.log"
+
+def calculate_uptime():
+    """Calculate and return the uptime as a string."""
     try:
-        # Correct the file path by joining BASE_DIR and the relative path
-        uptime_file_path = os.path.join(BASE_DIR, '..', 'server_uptime.json')
-        
-        with open(uptime_file_path, 'r') as f:
-            data = f.read().strip()  # Read the content and remove extra spaces/newlines
-            # Define the format of the date-time string from the file
-            startup_time = datetime.strptime(data, "%Y-%m-%d %I:%M %p")
-            current_time = datetime.now()
-            uptime_seconds = (current_time - startup_time).total_seconds()
-            return uptime_seconds / 3600  # Convert to hours
-    except (FileNotFoundError, ValueError) as e:
-        print(f"Error: Uptime data is missing or corrupted. {e}")
-        return 0  # Return 0 if there is an error or no file
+        uptime_stat = os.stat(FILE_PATH)
+        creation_time = uptime_stat.st_ctime
+        current_time = time.time()
+
+        # Calculate the elapsed time
+        elapsed_time_seconds = current_time - creation_time
+        elapsed_time = timedelta(seconds=elapsed_time_seconds)
+
+        # Extract hours, minutes, and seconds
+        hours, remainder = divmod(elapsed_time.seconds, 3600)
+        minutes, seconds = divmod(remainder, 60)
+
+        return f'{elapsed_time.days} Days, {hours:02}:{minutes:02}:{seconds:02}'
+    except FileNotFoundError:
+        return "File not found."
+    except Exception as e:
+        return f"Error: {e}"
+
+@app.route("/uptime", methods=["GET"])
+def get_uptime():
+    """API endpoint to get the uptime."""
+    uptime = calculate_uptime()
+    return jsonify({"uptime": uptime})
 
 
 
 
 @app.route('/')
 def index():
-    uptime_hours = get_uptime()
     players = load_data()
-    return render_template('index.html', players=players, uptime=uptime_hours)
+    return render_template('index.html', players=players)
 
 # @app.route('/output_data')
 # def output_data():
