@@ -27,6 +27,7 @@ class MinecraftStatsHandler:
         for file in os.listdir(folder_path):
             if file.endswith(".dat"):
                 result.append(file.split(".")[0])
+        print(result)
         return result
 
 
@@ -117,8 +118,9 @@ class MinecraftStatsHandler:
                 missing_criteria_data = json.load(file)
 
             multi_part_advancements = missing_criteria_data.get("multi_part_advancements", {})
-
-            report = {"minecraft_advancements": {}, "non_minecraft_advancements": {}}
+            other_advancements = missing_criteria_data.get("other_advancements", {})
+            
+            report = {"multi_part_advancements": {}, "other_advancements": {}}
             for advancement, details in advancements_data.items():
                 if not isinstance(details, dict):
                     print(f"Skipping invalid data for advancement {advancement}: {details}")
@@ -129,45 +131,38 @@ class MinecraftStatsHandler:
                     # print(f"Skipping recipe advancement: {advancement}")
                     continue
                 
-                if "root" in advancement:
-                    continue
+                # if "root" in advancement:
+                #     continue
 
-                # Skip advancements with the "root" tag
-                if "root" in advancement:
-                    # print(f"Skipping root advancement: {advancement}")
-                    continue
-
-                completed_criteria = list(details.get("criteria", {}).keys())
+                # # Skip advancements with the "root" tag
+                # if "root" in advancement:
+                #     # print(f"Skipping root advancement: {advancement}")
+                #     continue
 
                 if advancement in multi_part_advancements:
-                    total_criteria = multi_part_advancements[advancement]["criteria"]
+                    # print(list(details["criteria"].keys()))
+                    if len(list(details["criteria"].keys())) == multi_part_advancements[advancement]["requirements_num"]:
+                        # print("yes")
+                        multi_part_advancements[advancement]["done"] = True
+                        
+                    else:
+                        multi_part_advancements[advancement]["done"] = False
+                        multi_part_advancements[advancement]["current_progress"] = list(details["criteria"].keys())
+                        multi_part_advancements[advancement]["progress"] = f"{len(list(details["criteria"].keys())) / multi_part_advancements[advancement]["requirements_num"] * 100}%"
+                        # print(f"no, {len(list(details["criteria"].keys()))} / {multi_part_advancements[advancement]["requirements_num"]}")
+                    report["multi_part_advancements"][advancement] = multi_part_advancements[advancement]
                 else:
-                    total_criteria = completed_criteria
+                    other_advancements[advancement]["done"] = True
+                    report["other_advancements"][advancement] = other_advancements[advancement]
 
-                missing_criteria = []
-                for criterion in total_criteria:
-                    if criterion not in completed_criteria:
-                        missing_criteria.append(criterion)
 
-                advancement_data = {
-                    "description": multi_part_advancements.get(advancement, {}).get("description", "No description available"),
-                    "completed_criteria": completed_criteria,
-                    "missing_criteria": missing_criteria,
-                    "completed": details.get("done", False),
-                }
-
-                # Categorize advancements
-                if advancement.startswith("minecraft:"):
-                    report["minecraft_advancements"][advancement] = advancement_data
-                else:
-                    report["non_minecraft_advancements"][advancement] = advancement_data
-
+            # report = {"multi_part_advancements": multi_part_advancements, "other_advancements": other_advancements}
             # Write the report to an output JSON file
             os.makedirs(os.path.dirname(output_path), exist_ok=True)
             with open(output_path, "w") as json_file:
                 json.dump(report, json_file, indent=4)
 
-            print(f"Advancement report successfully saved to {output_path}")
+            # print(f"Advancement report successfully saved to {output_path}")
         except Exception as e:
             print(f"An error occurred while processing advancements for UUID {self.uuid}: {e}")
 
