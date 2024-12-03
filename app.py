@@ -121,6 +121,10 @@ def index():
     players = load_data()
     return render_template('index.html', players=players, uptime=uptime_hours)
 
+# @app.route('/output_data')
+# def output_data():
+#     pass
+
 @app.route('/player/<uuid>')
 def player_page(uuid):
     players = load_data()
@@ -132,7 +136,7 @@ def player_page(uuid):
     try:
         stats = load_player_stats(uuid)
     except FileNotFoundError:
-        statrs = None
+        stats = None
         
     if stats is None:
         stats = {

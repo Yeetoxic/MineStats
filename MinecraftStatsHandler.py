@@ -11,7 +11,9 @@ class MinecraftStatsHandler:
         self.folder = self.get_playerdata_folder()
         self.MojangAPI_URL = f"https://sessionserver.mojang.com/session/minecraft/profile/{uuid}"
         self.skins_folder = "./static/skins"
+        self.capes_folder = "./static/capes"
         os.makedirs(self.skins_folder, exist_ok=True)
+        os.makedirs(self.capes_folder, exist_ok=True)
 
 
     def get_playerdata_folder(self):
@@ -76,6 +78,36 @@ class MinecraftStatsHandler:
 
         except requests.exceptions.RequestException as e:
             print(f"An error occurred while fetching skins: {e}")
+
+    
+    def get_minecraft_capes(self):
+        try:
+            user_url = f"https://api.capes.dev/load/{self.uuid}/minecraft"
+
+            # Get the user's cape url
+            cape_response = requests.get(user_url)
+            if cape_response.status_code == 200:
+                data = cape_response.json()
+                if data['exists'] == True:
+                    cape_url = data['imageUrl']
+                else:
+                    return f'No cape found for {self.username}!'
+            else:
+                print(f"Error fetching cape: {cape_response.status_code} - {cape_response.reason}")
+
+
+            # Download and save cape
+            cape_response = requests.get(cape_url)
+            if cape_response.status_code == 200:
+                cape_file = os.path.join(self.capes_folder, f"{self.uuid}_cape.png")
+                with open(cape_file, "wb") as file:
+                    file.write(cape_response.content)
+                print(f"Head image successfully saved as {cape_file}")
+            else:
+                print(f"Error fetching cape: {cape_response.status_code} - {cape_response.reason}")
+
+        except requests.exceptions.RequestException as e:
+            print(f"An error occurred while fetching capes: {e}")
 
 
     def write_playerdata(self):
@@ -227,6 +259,9 @@ if __name__ == "__main__":
 
                     # Convert stats to simplified JSON
                     player.convert_stats_to_simplified_json()
+
+                    # Grab cape from capes.dev
+                    player.get_minecraft_capes()
                     print("")
                 else:
                     print(result)

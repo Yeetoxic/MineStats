@@ -66,7 +66,7 @@
                 {% for player in players %}
                 <tr>
                     <!-- Player Head -->
-                    <td><img class="player-head" src="{{ url_for('static', filename='skins/' + player['uuid'] + '_head.png') }}" alt="Player Head"></td>
+                    <td><img class="player-head" src="/static/skins/{{player['uuid']}}_head.png" alt="Player Head"></td>
                     
                     <!-- Username Link -->
                     <td><a href="{{ url_for('player_page', uuid=player['uuid']) }}">{{ player['username'] }}</a></td>
@@ -135,7 +135,7 @@
 
     <!-- Footer -->
     <footer class="bg-dark text-white text-center py-3 mt-5">
-        <p>&copy; 2024 Minecraft Stats. All Rights Reserved.</p>
+        <p>&copy; 2024 StatCrafter. All Rights Reserved.</p>
     </footer>
 
     <!-- Bootstrap JS and Popper.js -->
