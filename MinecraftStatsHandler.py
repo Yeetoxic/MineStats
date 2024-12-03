@@ -69,7 +69,7 @@ class MinecraftStatsHandler:
             # Download and save full skin
             skin_response = requests.get(skin_url)
             if skin_response.status_code == 200:
-                skin_file = os.p.join(self.skins_folder, f"{self.uuid}.png")
+                skin_file = os.path.join(self.skins_folder, f"{self.uuid}.png")
                 with open(skin_file, "wb") as file:
                     file.write(skin_response.content)
                 print(f"Skin image successfully saved as {skin_file}")
