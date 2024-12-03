@@ -69,32 +69,49 @@
                 </tr>
             </thead>
             <tbody>
-                {% for advancement, data in advancements['minecraft_advancements'].items() %}
+                {% for advancement, data in advancements['multi_part_advancements'].items() %}
                 <tr>
                     <td>
                         <img src="{{ url_for('static', filename='advancements/' + data.get('icon', 'default-icon.png')) }}" 
                              alt="Icon" class="advancement-icon">
                     </td>
                     <td>
-                        <strong>{{ advancement_id }}</strong><br>
+                        <strong>{{ data.title }}</strong><br>
                         
-                        {{ data.description }}
-                        {% if data.missing_criteria | length > 0 %}
+                        {% if data.done == false %}
                             <!-- Progress Bar for Incomplete Advancements -->
                             <div class="progress mt-2">
                                 <div class="progress-bar bg-warning" 
                                      role="progressbar" 
-                                     style="width: {{ (data.completed_criteria | length / (data.completed_criteria | length + data.missing_criteria | length)) * 100 }}%;" 
-                                     aria-valuenow="{{ data.completed_criteria | length }}" 
+                                     style="width: {{data.progress}};" 
+                                     aria-valuenow="{{ data.current_progress | length }}" 
                                      aria-valuemin="0" 
-                                     aria-valuemax="{{ data.completed_criteria | length + data.missing_criteria | length }}">
-                                    {{ data.completed_criteria | length }}/{{ data.completed_criteria | length + data.missing_criteria | length }}
+                                     aria-valuemax="{{ data.requirements_num }}">
+                                     {{ data.progress[0:4] }}%
                                 </div>
                             </div>
                         {% else %}
                             <!-- Mark as Completed -->
                             <span class="badge bg-success mt-2">Completed</span>
                         {% endif %}
+                    </td>
+                    <td>
+                        {{ data.description }}
+                    </td>
+                </tr>
+                
+                
+                {% endfor %}
+
+                {% for advancement, data in advancements['other_advancements'].items() %}
+                <tr>
+                    <td>
+                        <img src="{{ url_for('static', filename='advancements/' + data.get('icon', 'default-icon.png')) }}" 
+                             alt="Icon" class="advancement-icon">
+                    </td>
+                    <td>
+                        <strong>{{ data.title }}</strong><br>
+                            <span class="badge bg-success mt-2">Completed</span>
                     </td>
                     <td>
                         {{ data.description }}
