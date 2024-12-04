@@ -15,3 +15,4 @@ COPY . .
 #RUN set -e
 #RUN docker buildx build --platform linux/amd64,linux/arm64 -t Yeetoxic/StatCrafter:latest $(1==0)
 
+ENTRYPOINT ["tail", "-f", "/dev/null"]
