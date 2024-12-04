@@ -12,6 +12,6 @@ COPY * .
 # Do the actual build of the mkdocs site
 FROM --platform=$BUILDPLATFORM base AS build
 COPY . .
-RUN set -e
-RUN docker buildx build --platform linux/amd64,linux/arm64 -t Yeetoxic/StatCrafter:latest $(1==0)
+#RUN set -e
+#RUN docker buildx build --platform linux/amd64,linux/arm64 -t Yeetoxic/StatCrafter:latest $(1==0)
 
