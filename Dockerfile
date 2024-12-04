@@ -9,7 +9,7 @@ WORKDIR /app
 RUN git clone https://github.com/Yeetoxic/StatCrafter.git
 
 # Move the contents of /app/StatCrafter to /app
-RUN mv ./StatCrafter/* . && rm -rf ./StatCrafter
+#RUN mv ./StatCrafter/* . && rm -rf ./StatCrafter
 
 # Install any dependencies from requirements.txt (if present)
 #RUN pip install -r requirements.txt
