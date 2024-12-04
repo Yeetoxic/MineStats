@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y
 WORKDIR /app/StatCrafter
 
 # Install any dependencies from requirements.txt (if present)
-RUN pip install -r requirements.txt
+#RUN pip install -r requirements.txt
 
 # Set the command to run your Python application
-CMD ["python", "app.py"]
+#CMD ["python", "app.py"]
