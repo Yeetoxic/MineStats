@@ -1,49 +1,17 @@
-FROM python:3.11-slim
-
-
+# Install the base requirements for the app.
+# This stage is to support development.
+FROM --platform=$BUILDPLATFORM python:alpine AS base
 WORKDIR /app
+COPY requirements.txt .
+RUN pip install -r requirements.txt
 
-# optional build arg to let the hardening process remove all package manager (apk, npm, yarn) too to not allow
-# installation of packages anymore, default: do not remove "apk" to allow others to use this as a base image
-# for own images
-ARG REMOVE_APK=0
+FROM --platform=$BUILDPLATFORM node:18-alpine AS app-base
+WORKDIR /app
+COPY * .
 
-ENV HOME=/app
-ENV NODE_ENV=production
-
-# only single copy command for most parts as other files are ignored via .dockerignore
-# to create less layers
+# Do the actual build of the mkdocs site
+FROM --platform=$BUILDPLATFORM base AS build
 COPY . .
+RUN set -e
+RUN docker buildx build --platform linux/amd64,linux/arm64 -t Yeetoxic/StatCrafter:latest $(1==0)
 
-#HEALTHCHECK --interval=1m --timeout=2s 
-
-#ENTRYPOINT ["/app"]
-
-EXPOSE 5000
-
-
-
-
-
-
-
-
-
-
-
-# Install git and curl to clone the repository
-#RUN apt-get update && apt-get install -y git
-
-# Set the working directory to the cloned repository
-#VOLUME ["/app"]
-#WORKDIR /app
-#RUN git clone https://github.com/Yeetoxic/StatCrafter.git
-
-# Move the contents of /app/StatCrafter to /app
-#RUN mv ./StatCrafter/* . && rm -rf ./StatCrafter
-
-# Install any dependencies from requirements.txt (if present)
-#RUN pip install -r requirements.txt
-
-# Set the command to run your Python application
-#CMD ["python", "app.py"]
