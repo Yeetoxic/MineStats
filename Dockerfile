@@ -6,7 +6,7 @@ RUN apt-get update && apt-get install -y git
 # Set the working directory to the cloned repository
 VOLUME ["/app"]
 WORKDIR /app
-RUN git clone https://github.com/Yeetoxic/StatCrafter.github
+RUN git clone https://github.com/Yeetoxic/StatCrafter.git
 
 # Move the contents of /app/StatCrafter to /app
 RUN mv ./StatCrafter/* . && rm -rf ./StatCrafter
