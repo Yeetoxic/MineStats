@@ -17,7 +17,7 @@ COPY . .
 
 #HEALTHCHECK --interval=1m --timeout=2s 
 
-ENTRYPOINT ["/app"]
+#ENTRYPOINT ["/app"]
 
 EXPOSE 5000
 
