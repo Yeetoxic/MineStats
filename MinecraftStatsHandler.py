@@ -183,7 +183,7 @@ class MinecraftStatsHandler:
                     else:
                         multi_part_advancements[advancement]["done"] = False
                         multi_part_advancements[advancement]["current_progress"] = list(details["criteria"].keys())
-                        multi_part_advancements[advancement]["progress"] = f"{len(list(details["criteria"].keys())) / multi_part_advancements[advancement]["requirements_num"] * 100}%"
+                        multi_part_advancements[advancement]["progress"] = f"{len(list(details['criteria'].keys())) / multi_part_advancements[advancement]['requirements_num'] * 100}%"
                         # print(f"no, {len(list(details["criteria"].keys()))} / {multi_part_advancements[advancement]["requirements_num"]}")
                     report["multi_part_advancements"][advancement] = multi_part_advancements[advancement]
                 else:
