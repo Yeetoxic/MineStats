@@ -186,7 +186,7 @@ def online_players():
     """Fetch the list of online players and their ping."""
     try:
         # Query the server for player names
-        server = JavaServer("localhost", 25565)  # Replace with your server's IP and port
+        server = JavaServer(SERVER_ADDRESS, 25565)  # Replace with your server's IP and port
         query = server.query()
         players = query.players.names or []
 
