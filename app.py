@@ -5,7 +5,8 @@ from PlayerGrabber import PlayerGrabber
 from MinecraftStatsHandler import MinecraftStatsHandler
 import threading
 import time
-from datetime import datetime, timedelta
+from datetime import datetime
+from mcstatus import JavaServer
 
 app = Flask(__name__)
 
@@ -46,7 +47,7 @@ def run_initial_processing():
                         player = MinecraftStatsHandler(player_uuid)
                         result = player.get_minecraft_usernames()
                         if isinstance(result, dict) and "name" in result:
-                            print(f"Username: {result['name']}")
+                            #print(f"Username: {result['name']}")
                             player.get_minecraft_skins()
 
                             # Generate advancement report
@@ -54,9 +55,10 @@ def run_initial_processing():
 
                             # Convert stats to simplified JSON
                             player.convert_stats_to_simplified_json()
-                            print("")
+                            #print("")
                         else:
-                            print(result)
+                            #print(result)
+                            pass
                     except Exception as e:
                         print(f"An error occurred with UUID {player_uuid}: {e}")
                 dummy.write_playerdata()
@@ -97,36 +99,80 @@ def load_advancements(player_uuid):
         return None
 
 # Server Clock
-FILE_PATH = "../latest.log"
+FILE_PATH = "../logs/latest.log"
 
 def calculate_uptime():
-    """Calculate and return the uptime as a string."""
+    """Calculate and return the server's uptime as a string."""
     try:
-        uptime_stat = os.stat(FILE_PATH)
-        creation_time = uptime_stat.st_ctime
-        current_time = time.time()
+        if not os.path.exists(FILE_PATH):
+            return "Log file not found."
 
-        # Calculate the elapsed time
-        elapsed_time_seconds = current_time - creation_time
-        elapsed_time = timedelta(seconds=elapsed_time_seconds)
+        server_start_time = None
+        server_stop_time = None
 
-        # Extract hours, minutes, and seconds
-        hours, remainder = divmod(elapsed_time.seconds, 3600)
-        minutes, seconds = divmod(remainder, 60)
+        with open(FILE_PATH, "r") as log_file:
+            lines = log_file.readlines()
 
-        return f'{elapsed_time.days} Days, {hours:02}:{minutes:02}:{seconds:02}'
-    except FileNotFoundError:
-        return "File not found."
+        # Get today's date to associate with timestamps
+        today_date = datetime.now().date()
+
+        for line in lines:
+            if "Starting minecraft server" in line:
+                # Extract the timestamp and parse it
+                timestamp_str = line.split("]")[0].strip("[")  # Extracts HH:MM:SS
+                start_time = datetime.strptime(timestamp_str, "%H:%M:%S").time()
+                server_start_time = datetime.combine(today_date, start_time)
+                server_stop_time = None  # Reset stop time if server restarts
+            elif "Stopping server" in line:
+                # Extract the timestamp and parse it
+                timestamp_str = line.split("]")[0].strip("[")
+                stop_time = datetime.strptime(timestamp_str, "%H:%M:%S").time()
+                server_stop_time = datetime.combine(today_date, stop_time)
+
+        if server_start_time:
+            if server_stop_time:
+                uptime = server_stop_time - server_start_time
+            else:
+                # If the server is running, calculate uptime until now
+                current_time = datetime.now()
+                uptime = current_time - server_start_time
+
+            # Format uptime as days, hours, minutes, and seconds
+            days = uptime.days
+            hours, remainder = divmod(uptime.seconds, 3600)
+            minutes, seconds = divmod(remainder, 60)
+            return f'{days} Days, {hours:02}:{minutes:02}:{seconds:02}'
+
+        return "No start event found in the logs."
     except Exception as e:
         return f"Error: {e}"
 
 @app.route("/uptime", methods=["GET"])
 def get_uptime():
-    """API endpoint to get the uptime."""
+    """API endpoint to get the server's uptime."""
     uptime = calculate_uptime()
     return jsonify({"uptime": uptime})
 
 
+
+# Player Counter
+SERVER_ADDRESS = "localhost"  # Replace with your server's address
+
+@app.route('/live_player_count', methods=['GET'])
+def live_player_count():
+    """Fetch the current player count from the Minecraft server."""
+    try:
+        server = JavaServer.lookup(SERVER_ADDRESS)
+        status = server.status()
+        return jsonify({
+            "online_players": status.players.online,
+            "max_players": status.players.max
+        })
+    except Exception as e:
+        return jsonify({
+            "error": "Could not retrieve player count",
+            "details": str(e)
+        }), 500
 
 
 @app.route('/')

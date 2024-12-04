@@ -23,7 +23,7 @@ class PlayerGrabber:
         try:
             nbtfile = nbt.NBTFile(self.input_file)
             self.write_new_data(nbtfile, self.output_file)
-            print(f"Successfully processed {self.input_file} into {self.output_file}")
+            #print(f"Successfully processed {self.input_file} into {self.output_file}")
         except Exception as e:
             print(f"An error occurred while processing: {e}")
 
@@ -61,7 +61,7 @@ class PlayerGrabber:
         os.makedirs(os.path.dirname(filename), exist_ok=True)
         with open(filename, "w") as file_handler:
             json.dump(data, file_handler, indent=4)
-        print(f"Playerdata successfully saved to {filename}")
+        #print(f"Playerdata successfully saved to {filename}")
 
 
 

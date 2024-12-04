@@ -29,7 +29,7 @@ class MinecraftStatsHandler:
         for file in os.listdir(folder_path):
             if file.endswith(".dat"):
                 result.append(file.split(".")[0])
-        print(result)
+        #print(result)
         return result
 
 
@@ -62,7 +62,7 @@ class MinecraftStatsHandler:
                 head_file = os.path.join(self.skins_folder, f"{self.uuid}_head.png")
                 with open(head_file, "wb") as file:
                     file.write(head_response.content)
-                print(f"Head image successfully saved as {head_file}")
+                #print(f"Head image successfully saved as {head_file}")
             else:
                 print(f"Error fetching head skin: {head_response.status_code} - {head_response.reason}")
 
@@ -72,7 +72,7 @@ class MinecraftStatsHandler:
                 skin_file = os.path.join(self.skins_folder, f"{self.uuid}.png")
                 with open(skin_file, "wb") as file:
                     file.write(skin_response.content)
-                print(f"Skin image successfully saved as {skin_file}")
+                #print(f"Skin image successfully saved as {skin_file}")
             else:
                 print(f"Error fetching full skin: {skin_response.status_code} - {skin_response.reason}")
 
@@ -102,7 +102,7 @@ class MinecraftStatsHandler:
                 cape_file = os.path.join(self.capes_folder, f"{self.uuid}_cape.png")
                 with open(cape_file, "wb") as file:
                     file.write(cape_response.content)
-                print(f"Head image successfully saved as {cape_file}")
+                #print(f"Cape image successfully saved as {cape_file}")
             else:
                 print(f"Error fetching cape: {cape_response.status_code} - {cape_response.reason}")
 
@@ -121,7 +121,7 @@ class MinecraftStatsHandler:
         }
         with open(output_file, "w") as file_handler:
             json.dump(data, file_handler, indent=4)
-        print(f"Usernames data successfully saved to {output_file}")
+        #print(f"Usernames data successfully saved to {output_file}")
     
 
     def generate_achievement_report(self):
@@ -155,7 +155,7 @@ class MinecraftStatsHandler:
             report = {"multi_part_advancements": {}, "other_advancements": {}}
             for advancement, details in advancements_data.items():
                 if not isinstance(details, dict):
-                    print(f"Skipping invalid data for advancement {advancement}: {details}")
+                    #print(f"Skipping invalid data for advancement {advancement}: {details}")
                     continue  # Skip non-dictionary entries
 
                 # Skip advancements with the "recipe" tag
@@ -231,7 +231,7 @@ class MinecraftStatsHandler:
                 json.dump(simplified_stats, json_file, indent=4)
                 
 
-            print(f"Simplified stats successfully saved to {output_path}")
+            #print(f"Simplified stats successfully saved to {output_path}")
         except Exception as e:
             print(f"An error occurred while processing stats for UUID {self.uuid}: {e}")
 
@@ -248,7 +248,7 @@ if __name__ == "__main__":
                 player = MinecraftStatsHandler(player_uuid)
                 result = player.get_minecraft_usernames()
                 if isinstance(result, dict) and "name" in result:
-                    print(f"Username: {result['name']}")
+                    #print(f"Username: {result['name']}")
                     player.get_minecraft_skins()
 
                     # Generate advancement report
@@ -259,7 +259,7 @@ if __name__ == "__main__":
 
                     # Grab cape from capes.dev
                     player.get_minecraft_capes()
-                    print("")
+                    #print("")
                 else:
                     print(result)
             except Exception as e:
