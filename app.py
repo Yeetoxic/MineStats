@@ -7,6 +7,7 @@ import threading
 import time
 from datetime import datetime
 from mcstatus import JavaServer
+import nbtlib
 
 app = Flask(__name__)
 
@@ -47,8 +48,11 @@ def run_initial_processing():
                         player = MinecraftStatsHandler(player_uuid)
                         result = player.get_minecraft_usernames()
                         if isinstance(result, dict) and "name" in result:
-                            #print(f"Username: {result['name']}")
+                            # print(f"Username: {result['name']}")
                             player.get_minecraft_skins()
+
+                            # Grab cape from capes.dev
+                            player.get_minecraft_capes()
 
                             # Generate advancement report
                             player.generate_achievement_report()
@@ -156,29 +160,78 @@ def get_uptime():
 
 
 # Player Counter
-SERVER_ADDRESS = "localhost"  # Replace with your server's address
+SERVER_ADDRESS = "localhost"
 
 @app.route('/live_player_count', methods=['GET'])
 def live_player_count():
     """Fetch the current player count from the Minecraft server."""
     try:
-        server = JavaServer.lookup(SERVER_ADDRESS)
+        server = JavaServer(SERVER_ADDRESS, 25565)
         status = server.status()
+        #print(f"Players online: {status.players.online}, Max players: {status.players.max}")
         return jsonify({
             "online_players": status.players.online,
             "max_players": status.players.max
         })
     except Exception as e:
+        print(f"Error fetching player count: {e}")  # Log detailed error
         return jsonify({
             "error": "Could not retrieve player count",
             "details": str(e)
         }), 500
 
+# Get online players
+@app.route('/online_players', methods=['GET'])
+def online_players():
+    """Fetch the list of online players and their ping."""
+    try:
+        # Query the server for player names
+        server = JavaServer("127.0.0.1", 25565)  # Replace with your server's IP and port
+        query = server.query()
+        players = query.players.names or []
+
+        # Fetch the latency using the status() method
+        status = server.status()
+        ping = round(status.latency, 2)  # Round the ping to 2 decimal places
+
+        return jsonify({
+            "players": players,
+            "ping": ping
+        })
+    except Exception as e:
+        error_message = f"Could not retrieve online players. Error: {e}"
+        print(error_message)  # Log the error
+        return jsonify({
+            "error": "Could not retrieve online players",
+            "details": error_message
+        }), 500
+
+
+
+
+# Get Game Version
+def get_minecraft_version(level_dat_path):
+    try:
+        # Load the level.dat file
+        level_data = nbtlib.load(level_dat_path)
+
+        # Look for the "Version" field
+        if 'Version' in level_data['Data']:
+            version_data = level_data['Data']['Version']
+            version_name = version_data.get('Name', 'Unknown')
+            return f"{version_name}"
+        else:
+            return "Version information not found in level.dat."
+    except Exception as e:
+        return f"Error reading level.dat: {e}"
+
 
 @app.route('/')
 def index():
+    level_dat_path = os.path.join("../world/", "level.dat")
+    minecraft_version = get_minecraft_version(level_dat_path)
     players = load_data()
-    return render_template('index.html', players=players)
+    return render_template('index.html', players=players, minecraft_version=minecraft_version)
 
 # @app.route('/output_data')
 # def output_data():

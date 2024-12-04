@@ -39,6 +39,74 @@
             }
         }
 
+        // Function to show online player list
+        async function updateOnlinePlayers() {
+            try {
+                const response = await fetch('/online_players'); // Call the Flask endpoint
+                const data = await response.json();
+
+                const playerBox = document.getElementById('online-players-box');
+
+                if (data.players && data.players.length > 0) {
+                    const playersHtml = data.players
+                        .map(player => `<li class="list-group-item">${player} - Ping: ${data.ping} ms</li>`)
+                        .join("");
+                    playerBox.innerHTML = `<ul class="list-group">${playersHtml}</ul>`;
+                } else {
+                    playerBox.innerHTML = "<p class='text-center'>No players online right now.</p>";
+                }
+            } catch (error) {
+                console.error("Error fetching online players:", error);
+                document.getElementById('online-players-box').innerHTML = "<p class='text-center'>Error loading player data.</p>";
+            }
+        }
+
+        
+        // Function to count players & update webpage
+        document.addEventListener("DOMContentLoaded", () => {
+            async function updatePlayerCount() {
+                try {
+                    const response = await fetch('/live_player_count');
+                    const data = await response.json();
+
+                    console.log("Player count response:", data); // Log the response for debugging
+
+                    // Get the DOM elements
+                    const livePlayerCountElem = document.getElementById('live-player-count');
+                    const maxPlayersElem = document.getElementById('max-players');
+
+                    if (!livePlayerCountElem || !maxPlayersElem) {
+                        console.error("Missing DOM elements: live-player-count or max-players");
+                        return;
+                    }
+
+                    if (response.ok && data.online_players !== undefined) {
+                        // Update the DOM
+                        livePlayerCountElem.innerText = data.online_players;
+                        maxPlayersElem.innerText = data.max_players || "N/A";
+                    } else {
+                        livePlayerCountElem.innerText = "Error";
+                        console.error("Player count error:", data.details || "Unknown error");
+                    }
+                } catch (error) {
+                    console.error("Error fetching player count:", error);
+                    const livePlayerCountElem = document.getElementById('live-player-count');
+                    if (livePlayerCountElem) {
+                        livePlayerCountElem.innerText = "Error";
+                    }
+                }
+            }
+
+            // Refresh player count every 1 second
+            setInterval(updatePlayerCount, 1000);
+            updatePlayerCount(); // Initial fetch on page load
+        });
+
+        
+        // Fetch online players every second
+        setInterval(updateOnlinePlayers, 1000);
+        updateOnlinePlayers(); // Initial fetch on page load
+
         // Refresh uptime every second
         setInterval(updateUptime, 1000);
         window.onload = updateUptime; // Initial fetch on page load
@@ -104,7 +172,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Total Players Online</h5>
-                        <p class="card-text">Current Player Count: <strong>0</strong></p>
+                        <p class="card-text"><strong><span id="live-player-count">Loading...</span></strong> / <strong><span id="max-players">Loading...</span></strong></p>
                     </div>
                 </div>
             </div>
@@ -120,7 +188,24 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Minecraft Version</h5>
-                        <p class="card-text">Version: <strong>1.18</strong></p>
+                        <p class="card-text">Version: <strong>{{ minecraft_version }}</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Online Player List -->
+    <div class="container my-5">
+        <h2 class="text-center mb-4">Online Players</h2>
+        <div class="row">
+            <div class="col-md-6 mx-auto">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Currently Online</h5>
+                        <div id="online-players-box">
+                            <p class="text-center">Loading online players...</p>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -1,4 +1,3 @@
-import sys
 from nbt import nbt
 import os
 import json
