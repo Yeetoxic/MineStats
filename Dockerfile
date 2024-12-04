@@ -4,7 +4,8 @@ FROM python:3.11-slim
 RUN apt-get update && apt-get install -y
 
 # Set the working directory to the cloned repository
-WORKDIR /app/StatCrafter
+VOLUME ["/app"]
+WORKDIR /app
 
 # Install any dependencies from requirements.txt (if present)
 #RUN pip install -r requirements.txt
