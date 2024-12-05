@@ -1,0 +1,36 @@
+version: "3.9"
+
+services:
+  minecraft-server:
+    image: itzg/minecraft-server:latest
+    container_name: minecraft-server
+    ports:
+      - "25565:25565"
+      - "5000:5000"
+    environment:
+      EULA: "TRUE"
+      TYPE: "FABRIC"
+      MEMORY: "2G"
+    volumes:
+      - minecraft_data:/data
+      - ./monitor.py:/opt/minecraft/monitor.py  # Mount the Python script
+    entrypoint: >
+      bash -c "
+        echo 'Starting Minecraft Server...';
+        /start &
+        echo 'Starting Monitoring Script...';
+        apt-get update &&
+        apt-get install -y git python3-full &&
+        ls ./StatCrafter ||
+        git clone https://github.com/Yeetoxic/StatCrafter.git &&
+        apt-get install python3-pip -y &&
+        python3 -m pip install -r /data/StatCrafter/requirements.txt --break-system-packages &&
+        echo done &&
+        cd /data/StatCrafter &&
+        python3 /data/StatCrafter/app.py &&
+        tail -f /dev/null
+      "
+    restart: unless-stopped
+
+volumes:
+  minecraft_data:
