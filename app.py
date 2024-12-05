@@ -9,7 +9,6 @@ from datetime import datetime
 from mcstatus import JavaServer
 import nbtlib
 import re
-import subprocess
 
 app = Flask(__name__)
 
@@ -182,61 +181,6 @@ def live_player_count():
         }), 500
 
 
-# This is all essentially an IP logger
-def get_player_ips_from_logs(log_file_path):
-    """
-    Parses the server log file to extract player IPs.
-    Returns a dictionary mapping player names to their IPs.
-    """
-    player_ips = {}
-    ip_pattern = re.compile(r"(\w+)\[/([\d\.]+):\d+\]")  # Matches 'PlayerName[/IP:Port]'
-    
-    try:
-        with open(log_file_path, 'r') as log_file:
-            lines = log_file.readlines()
-            for line in lines:
-                match = ip_pattern.search(line)
-                if match:
-                    player_name = match.group(1)
-                    player_ip = match.group(2)
-                    player_ips[player_name] = player_ip
-    except FileNotFoundError:
-        print(f"Log file not found: {log_file_path}")
-    except Exception as e:
-        print(f"Error reading log file: {e}")
-
-    return player_ips
-
-# Ping the given user's IP
-def ping_ip(ip):
-    """
-    Pings the given IP address and returns the latency in milliseconds.
-    Handles cases where latency is reported as '<1ms' or missing.
-    """
-    try:
-        # Use appropriate ping command for the operating system
-        command = ["ping", "-n", "1", ip] if os.name == "nt" else ["ping", "-c", "1", ip]
-        print(f"Pinging IP: {ip} with command: {' '.join(command)}")  # Debugging
-
-        # Execute the ping command
-        result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-        print(f"Ping output for {ip}:\n{result.stdout}")  # Debugging
-
-        # Check for latency in the output
-        if "time=" in result.stdout:
-            # Extract latency value
-            time_part = result.stdout.split("time=")[-1].split(" ")[0]
-            return str(float(time_part.replace("ms", "")))  # Remove 'ms' and convert to float
-        elif "time<" in result.stdout:
-            print(f"Latency reported as less than 1ms for IP {ip}. Assigning 0.5ms.")
-            return "<1"  # Assign a small value for '<1ms'
-        else:
-            print(f"No latency information found in ping response for IP {ip}. Defaulting to None.")
-            return "None"  # Return None if no latency information is found
-    except Exception as e:
-        print(f"Error pinging IP {ip}: {e}")
-        return "None"  # Return None if ping fails
-
 
 def get_active_players_from_logs(log_file_path):
     """
@@ -249,18 +193,26 @@ def get_active_players_from_logs(log_file_path):
             lines = log_file.readlines()
         
         for line in lines:
+            line = line.strip()  # Remove leading and trailing whitespace
             if "joined the game" in line:
-                player = line.split(" ")[3]  # Assumes 'PlayerName joined the game'
-                active_players.add(player.strip())
+                # Extract player name before "joined the game"
+                match = re.search(r"(\w+) joined the game", line)
+                if match:
+                    player = match.group(1)
+                    active_players.add(player)
             elif "left the game" in line:
-                player = line.split(" ")[3]  # Assumes 'PlayerName left the game'
-                active_players.discard(player.strip())
+                # Extract player name before "left the game"
+                match = re.search(r"(\w+) left the game", line)
+                if match:
+                    player = match.group(1)
+                    active_players.discard(player)
     except FileNotFoundError:
         print(f"Log file not found: {log_file_path}")
     except Exception as e:
         print(f"Error reading log file: {e}")
     
     return active_players
+
 
 
 
@@ -282,7 +234,7 @@ def get_minecraft_version(level_dat_path):
 
 
 
-# Get online players & their pings!
+# Get online players!
 @app.route('/online_players', methods=['GET'])
 def online_players():
     """Fetch the list of online players and their pings."""
@@ -291,39 +243,9 @@ def online_players():
         active_players = get_active_players_from_logs(FILE_PATH)
         print(f"Active players: {active_players}")  # Debugging
 
-        # Parse player IPs from logs
-        player_ips = get_player_ips_from_logs(FILE_PATH)
-
-        # Filter IPs to only include active players
-        active_player_ips = {player: ip for player, ip in player_ips.items() if player in active_players}
-
-        # Ping only active players
-        player_pings = {}
-        for player, ip in active_player_ips.items():
-            latency = ping_ip(ip)
-            player_pings[player] = latency if latency is not None else "Timeout"
-
-        # Load the existing usernames.json file
-        if os.path.exists(DATA_FILE_PATH):
-            with open(DATA_FILE_PATH, "r") as f:
-                usernames_data = json.load(f)
-        else:
-            usernames_data = {"usermap": {}, "ping": {}}
-
-        # Preserve existing data and update with new player IPs and pings
-        for player, ip in active_player_ips.items():
-            if player not in usernames_data["usermap"]:
-                usernames_data["usermap"][player] = ip  # Add new player IPs only
-        usernames_data["ping"] = player_pings
-
-        # Write updated data back to the file
-        with open(DATA_FILE_PATH, "w") as f:
-            json.dump(usernames_data, f, indent=4)
-
         # Return the data in JSON format
         return jsonify({
-            "players": list(active_player_ips.keys()),  # Only active players
-            "ping": player_pings  # Dictionary mapping player names to pings
+            "players": sorted(list(active_players)),  # Sort for consistency
         })
     except Exception as e:
         error_message = f"Could not retrieve online players. Error: {e}"
@@ -332,6 +254,7 @@ def online_players():
             "error": "Could not retrieve online players",
             "details": error_message
         }), 500
+
 
 
 
