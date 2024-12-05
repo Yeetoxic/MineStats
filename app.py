@@ -8,7 +8,6 @@ import time
 from datetime import datetime
 from mcstatus import JavaServer
 import nbtlib
-import re
 
 app = Flask(__name__)
 
@@ -182,36 +181,26 @@ def live_player_count():
 
 
 
-def get_active_players_from_logs(log_file_path):
+def get_active_players_using_mcstatus():
     """
-    Parses the server log file to get currently active players.
-    Returns a set of active player names.
+    Uses mcstatus to fetch the currently active players on the Minecraft server.
+    Returns a set of active player names or an error message if the server is unreachable.
     """
-    active_players = set()
     try:
-        with open(log_file_path, 'r') as log_file:
-            lines = log_file.readlines()
-        
-        for line in lines:
-            line = line.strip()  # Remove leading and trailing whitespace
-            if "joined the game" in line:
-                # Extract player name before "joined the game"
-                match = re.search(r"(\w+) joined the game", line)
-                if match:
-                    player = match.group(1)
-                    active_players.add(player)
-            elif "left the game" in line:
-                # Extract player name before "left the game"
-                match = re.search(r"(\w+) left the game", line)
-                if match:
-                    player = match.group(1)
-                    active_players.discard(player)
-    except FileNotFoundError:
-        print(f"Log file not found: {log_file_path}")
+        # Query the Minecraft server
+        server = JavaServer(SERVER_ADDRESS, 25565)
+        status = server.status()
+
+        # Extract the list of player names
+        if status.players.sample:
+            active_players = {player.name for player in status.players.sample}
+        else:
+            active_players = set()
+
+        return active_players
     except Exception as e:
-        print(f"Error reading log file: {e}")
-    
-    return active_players
+        print(f"Error querying server for active players: {e}")
+        return set()
 
 
 
@@ -240,7 +229,7 @@ def online_players():
     """Fetch the list of online players and their pings."""
     try:
         # Parse active players from logs
-        active_players = get_active_players_from_logs(FILE_PATH)
+        active_players = get_active_players_using_mcstatus()
         print(f"Active players: {active_players}")  # Debugging
 
         # Return the data in JSON format
