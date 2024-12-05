@@ -49,7 +49,10 @@
 
                 if (data.players && data.players.length > 0) {
                     const playersHtml = data.players
-                        .map(player => `<li class="list-group-item">${player} - Ping: ${data.ping} ms</li>`)
+                        .map(player => {
+                            const ping = data.ping[player]; // Get the ping for the player
+                            return `<li class="list-group-item">${player} - Ping: ${ping || "N/A"} ms</li>`;
+                        })
                         .join("");
                     playerBox.innerHTML = `<ul class="list-group">${playersHtml}</ul>`;
                 } else {
@@ -60,6 +63,7 @@
                 document.getElementById('online-players-box').innerHTML = "<p class='text-center'>Error loading player data.</p>";
             }
         }
+
 
         
         // Function to count players & update webpage
