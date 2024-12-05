@@ -8,6 +8,8 @@ import time
 from datetime import datetime
 from mcstatus import JavaServer
 import nbtlib
+import logging
+import socket
 
 app = Flask(__name__)
 
@@ -23,6 +25,13 @@ FILE_PATH = "../logs/latest.log"
 
 # Create a threading event to signal when to stop
 stop_event = threading.Event()
+
+# Suppress Werkzeug logs
+logging.getLogger('werkzeug').setLevel(logging.ERROR)
+
+# Get the local IP address
+my_ip = socket.gethostbyname(socket.gethostname())
+
 
 def run_initial_processing():
     global stop_event
@@ -228,9 +237,9 @@ def get_minecraft_version(level_dat_path):
 def online_players():
     """Fetch the list of online players and their pings."""
     try:
-        # Parse active players from logs
+        # Parse active players using mcstatus
         active_players = get_active_players_using_mcstatus()
-        print(f"Active players: {active_players}")  # Debugging
+        #print(f"Active players: {active_players}")  # Debugging
 
         # Return the data in JSON format
         return jsonify({
@@ -328,7 +337,8 @@ if __name__ == "__main__":
     try:
         # Run the Flask app on the main thread
         print("Flask app starting...")
-        app.run(debug=True, host='0.0.0.0')
+        print(f"Server is running on http://127.0.0.1:5000 or http://{my_ip}:5000")
+        app.run(debug=False, host='0.0.0.0')
     except KeyboardInterrupt:
         pass
         # Handle ^C (Ctrl+C) gracefully
