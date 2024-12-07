@@ -27,7 +27,7 @@ Download 'docker-compose.yml' and place it where you would like to build your se
 ```
 docker-compose up -d
 ```
-from here you can start and stop the server and app the same you would any other docker container
+You may start and stop the server and app the same you would any other docker container
 
 ## Additional Setup
 - Note: please set `enable-query` to `true` in the `server.properties` file!
