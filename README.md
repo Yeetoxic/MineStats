@@ -11,5 +11,17 @@ A python-based web application that pulls and displays real-time statistics from
 - **Player Advancements**: Display the advancements each player has gotten on the server
 - **Real-Time Data**: Information is pulled directly from the Minecraft server, ensuring up-to-date stats.
 
+## Setup
+
+# Standalone Server
+```
+git clone https://github.com/Yeetoxic/StatCrafter.git
+```
+
+# Docker Compose Server Package
+Download 'docker-compose.yml'
+```
+docker-compose up -d
+```
 
 - Note: please set `enable-query` to `true` in the `server.properties` file!
