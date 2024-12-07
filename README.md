@@ -1,3 +1,5 @@
+![StatCrafter Logo](https://www.dropbox.com/scl/fi/6z2070184t7ipqvl33lkx/minecraft_title-1.png?rlkey=4y6qaep0fchg5qhiz9bebxdy2&st=qrcud19e&dl=1)
+
 # StatCrafter
 
 A python-based web application that pulls and displays real-time statistics from Minecraft servers. This project gathers data about players, the world, and player achievements, showcasing them in an easily readable format.
