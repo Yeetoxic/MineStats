@@ -1,4 +1,4 @@
-![StatCrafter Logo](https://ibb.co/M5vQ4KB)
+![StatCrafter Logo](statcrafter.png)
 
 # StatCrafter
 
