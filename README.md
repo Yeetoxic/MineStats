@@ -37,3 +37,6 @@ You may start and stop the server and app the same you would any other docker co
 
 ## Live Example
 - https://meteorcraft.serveminecraft.net/
+
+# License
+- This project is licensed under the MIT License - see the LICENSE file for details.
