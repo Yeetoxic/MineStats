@@ -11,7 +11,7 @@ A python-based web application that pulls and displays real-time statistics from
 - **Player Advancements**: Display the advancements each player has gotten on the server
 - **Real-Time Data**: Information is pulled directly from the Minecraft server, ensuring up-to-date stats.
 
-## Setup
+# Setup
 
 # Standalone Server
 ```
