@@ -20,17 +20,17 @@ Clone the repository into the root directory of your server
 ```
 git clone https://github.com/Yeetoxic/StatCrafter.git
 ```
-Start the app.py file
-```
-py app.py
-```
+- Execute 'InstallDependencies.bat' to set up the requirements
+- Execute 'RunStatCrafter.bat' to start the program
 
 ## Docker Compose Server Package
 Download 'docker-compose.yml' and place it where you would like to build your server
 ```
 docker-compose up -d
 ```
-from here you can start and stop the server and app the same you would any other docker container
+You may start and stop the server and app the same you would any other docker container
 
 ## Additional Setup
-- Note: please set `enable-query` to `true` in the `server.properties` file!
+- Set `enable-query` to `true` in the `server.properties` file!
+- Edit values in 'StatCrafterConfig.json' to set website name, server name, and IP address
+- Open port 5000 on your router if you want your players to be able to view the webserver
