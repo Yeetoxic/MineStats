@@ -20,10 +20,7 @@ Clone the repository into the root directory of your server
 ```
 git clone https://github.com/Yeetoxic/StatCrafter.git
 ```
-Start the app.py file
-```
-py app.py
-```
+Execute 'runStatCrafter.bat' to install dependencies and start the program
 
 ## Docker Compose Server Package
 Download 'docker-compose.yml' and place it where you would like to build your server
