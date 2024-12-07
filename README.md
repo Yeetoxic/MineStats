@@ -13,17 +13,17 @@ A python-based web application that pulls and displays real-time statistics from
 
 # Setup
 
-# Standalone Server
+## Standalone Server
 ```
 git clone https://github.com/Yeetoxic/StatCrafter.git
 ```
 
-# Docker Compose Server Package
+## Docker Compose Server Package
 Download 'docker-compose.yml' and place it where you would like to build your server
 ```
 docker-compose up -d
 ```
 from here you can start and stop the server and app the same you would any other docker container
 
-# Additional Setup
+## Additional Setup
 - Note: please set `enable-query` to `true` in the `server.properties` file!
