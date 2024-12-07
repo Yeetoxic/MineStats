@@ -31,4 +31,6 @@ docker-compose up -d
 You may start and stop the server and app the same you would any other docker container
 
 ## Additional Setup
-- Note: please set `enable-query` to `true` in the `server.properties` file!
+- Set `enable-query` to `true` in the `server.properties` file!
+- Edit values in 'StatCrafterConfig.json' to set website name, server name, and IP address
+- Open port 5000 on your router if you want your players to be able to view the webserver
