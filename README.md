@@ -20,8 +20,8 @@ Clone the repository into the root directory of your server
 ```
 git clone https://github.com/Yeetoxic/StatCrafter.git
 ```
-Execute 'InstallDependencies.bat' to set up the requirements
-Execute 'RunStatCrafter.bat' to start the program
+- Execute 'InstallDependencies.bat' to set up the requirements
+- Execute 'RunStatCrafter.bat' to start the program
 
 ## Docker Compose Server Package
 Download 'docker-compose.yml' and place it where you would like to build your server
