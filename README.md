@@ -13,9 +13,16 @@ A python-based web application that pulls and displays real-time statistics from
 
 # Setup
 
+### Python 3 is **required**
+
 ## Standalone Server
+Clone the repository into the root directory of your server
 ```
 git clone https://github.com/Yeetoxic/StatCrafter.git
+```
+Start the app.py file
+```
+py app.py
 ```
 
 ## Docker Compose Server Package
