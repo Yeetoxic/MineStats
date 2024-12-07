@@ -1,4 +1,4 @@
-![StatCrafter Logo](https://www.dropbox.com/scl/fi/6z2070184t7ipqvl33lkx/minecraft_title-1.png?rlkey=4y6qaep0fchg5qhiz9bebxdy2&st=qrcud19e&dl=1)
+![StatCrafter Logo](https://ibb.co/M5vQ4KB)
 
 # StatCrafter
 
