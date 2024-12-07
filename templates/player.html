@@ -8,11 +8,17 @@
     <link rel="stylesheet" href="/static/css/stylesheet.css">
 </head>
 <body>
-    <div class="container mt-4">
-        <!-- Back Button -->
-        <a href="{{ url_for('index') }}" class="btn btn-primary mb-3">Back to Player List</a>
 
-        <h1>{{ player.username }}'s Profile</h1>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{ url_for('index') }}">{{ config['server_name'] }}</a>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+
+        <h1 class="mb-4"><img class="player-head" src="{{ url_for('static', filename='skins/' + player['uuid'] + '_head.png') }}" alt="Player Head"> {{ player.username }}'s Profile</h1>
         <p>UUID: {{ player.uuid }}</p>
 
 
@@ -21,7 +27,7 @@
 
         <!-- Placeholder Stats Section -->
         <div class="container my-5">
-            <a href="{{ url_for('player_advancements', uuid=player['uuid']) }}">View Advancements</a>
+            <a href="{{ url_for('player_advancements', uuid=player['uuid']) }}" class="btn btn-secondary mb-4">View Advancements</a>
             <p><br><br><br></p>
             <h2 class="text-center mb-4">Player Stats</h2>
             <div class="row">
@@ -110,9 +116,9 @@
         </div>
 
 
-        <footer class="text-center py-3 mt-5">
+        <footer class="bg-dark text-white text-center py-3 mt-5">
             <p>Powered by StatCrafter</p>
-            <p>&copy; 2024 MeteorCraft. All Rights Reserved.</p>
+            <p>&copy; 2024 {{ config['server_name'] }}. All Rights Reserved.</p>
         </footer>
 
         <!-- Include the SkinView3D library -->

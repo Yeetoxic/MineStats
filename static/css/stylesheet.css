@@ -1,106 +1,147 @@
-/* Global styles */
+/* ============================= */
+/* GLOBAL STYLES */
+/* ============================= */
+
+/* Apply basic styles to the entire document */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
-    color: #333;
-    margin: 0;
-    padding: 0;
+    font-family: Arial, sans-serif; /* Set the default font */
+    background-color: #f4f4f9; /* Light gray background */
+    color: #333; /* Default text color */
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
 }
 
+/* Center content and set the width for the container */
 .container {
-    margin: 0 auto;
-    padding: 20px;
-    max-width: 900px;  /* Slightly wider container for profile pages */
-    text-align: center;
+    margin: 0 auto; /* Center align */
+    padding: 20px; /* Add spacing inside the container */
+    max-width: 900px; /* Slightly wider container for profile pages */
+    text-align: center; /* Center-align the text */
 }
 
-/* Header style */
+/* ============================= */
+/* HEADER STYLES */
+/* ============================= */
+
+/* Style for all headers (h1) */
 h1 {
-    margin-bottom: 20px;
-    font-size: 2em;
+    margin-bottom: 20px; /* Space below the header */
+    font-size: 2em; /* Larger font size for emphasis */
 }
 
-/* Table styling for both index and player pages */
+/* ============================= */
+/* TABLE STYLING */
+/* ============================= */
+
+/* Style for tables used across index and player pages */
 table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
+    width: 100%; /* Full width table */
+    border-collapse: collapse; /* Remove spacing between table borders */
+    margin-top: 20px; /* Add spacing above the table */
 }
 
+/* Style for table cells and headers */
 th, td {
-    padding: 10px;
-    border: 1px solid #ccc;
+    padding: 10px; /* Space inside each cell */
+    border: 1px solid #ccc; /* Light gray border around cells */
 }
 
+/* Background color for table headers */
 th {
-    background-color: #e0e0e0;
+    background-color: #e0e0e0; /* Light gray background for headers */
 }
 
+/* ============================= */
+/* IMAGE STYLING */
+/* ============================= */
+
+/* Style for images (e.g., player avatars) */
 img {
-    width: 50px;
-    height: 50px;
-    border-radius: 5px;
+    width: 50px; /* Fixed width for consistency */
+    height: 50px; /* Fixed height to match width */
+    border-radius: 5px; /* Slightly rounded corners */
 }
 
-/* Card layout for different sections (Server Info, World Stats, Player List) */
+/* ============================= */
+/* CARD LAYOUT STYLING */
+/* ============================= */
+
+/* General styling for card elements */
 .card {
-    margin-bottom: 30px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px; /* Space between cards */
+    background-color: #ffffff; /* White background for cards */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
 }
 
+/* Header styling for cards */
 .card-header {
-    background-color: #007bff;
-    color: white;
-    padding: 10px;
-    border-radius: 8px 8px 0 0;
+    background-color: #007bff; /* Blue background */
+    color: white; /* White text color */
+    padding: 10px; /* Add spacing inside the header */
+    border-radius: 8px 8px 0 0; /* Round the top corners only */
 }
 
+/* Body styling for cards */
 .card-body {
-    padding: 15px;
-    text-align: left;
+    padding: 15px; /* Add spacing inside the body */
+    text-align: left; /* Align text to the left */
 }
 
-/* Styling for the Player Profile Page */
+/* ============================= */
+/* PLAYER PROFILE PAGE STYLING */
+/* ============================= */
+
+/* Style for the skin viewer element */
 #skinViewer {
-    margin-top: 20px;
-    border: 1px solid #ccc;
-    display: inline-block;
-    border-radius: 8px;
+    margin-top: 20px; /* Space above the skin viewer */
+    border: 1px solid #ccc; /* Light gray border */
+    display: inline-block; /* Allow other elements to align around it */
+    border-radius: 8px; /* Rounded corners */
 }
 
+/* Style for the player stats section */
 .player-stats {
-    margin-top: 30px;
+    margin-top: 30px; /* Space above the stats section */
 }
 
+/* Remove bullet points and padding from the stats list */
 .player-stats ul {
-    list-style-type: none;
-    padding: 0;
+    list-style-type: none; /* No bullet points */
+    padding: 0; /* Remove default padding */
 }
 
+/* Style for individual player stats */
 .player-stats li {
-    margin: 10px 0;
-    font-size: 1.1em;
+    margin: 10px 0; /* Space between list items */
+    font-size: 1.1em; /* Slightly larger text for readability */
 }
 
-/* Adjustments for mobile responsiveness */
+/* ============================= */
+/* RESPONSIVENESS */
+/* ============================= */
+
+/* Adjust layout for screens smaller than 768px */
 @media screen and (max-width: 768px) {
+    /* Adjust container width and padding */
     .container {
-        padding: 15px;
-        max-width: 100%;
+        padding: 15px; /* Smaller padding on mobile */
+        max-width: 100%; /* Full width container */
     }
 
+    /* Smaller font size for headers */
     h1 {
-        font-size: 1.5em;
+        font-size: 1.5em; /* Reduce size for smaller screens */
     }
 
+    /* Adjust table cell padding */
     table th, table td {
-        padding: 8px;
+        padding: 8px; /* Smaller padding for mobile */
     }
 
+    /* Adjust image size */
     img {
-        width: 40px;
-        height: 40px;
+        width: 40px; /* Smaller width */
+        height: 40px; /* Smaller height to match width */
     }
 }

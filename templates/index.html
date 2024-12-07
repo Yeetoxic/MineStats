@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minecraft Server Stats</title>
+    <title>{{ config['site_title'] }}</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/stylesheet.css">
@@ -119,30 +119,70 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Minecraft Server Stats</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
-                    </li>
-                </ul>
-            </div>
+            <a class="navbar-brand" href="{{ url_for('index') }}">{{ config['server_name'] }}</a>
         </div>
     </nav>
 
+    <!-- Server Information -->
+    <div class="container my-5">
+        <h2 class="text-center mb-4">Server Information</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title">Server IP</h5>
+                        <p class="card-text">{{ config['server_ip'] }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title">Minecraft Version</h5>
+                        <p class="card-text">Version: <strong>{{ minecraft_version }}</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- World Stats -->
+    <div class="container my-5">
+        <h2 class="text-center mb-4">World Stats</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title">Players Online</h5>
+                        <p class="card-text"><strong><span id="live-player-count">Loading...</span></strong> / <strong><span id="max-players">Loading...</span></strong></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title">Uptime</h5>
+                        <p class="card-text"><strong><span id="uptime">Loading...</span></strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mx-auto">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Currently Online</h5>
+                    <div id="online-players-box">
+                        <p class="text-center">Loading online players...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Player List Section -->
     <div class="container">
-        <h1 class="text-center mb-4">Minecraft Player List</h1>
-        <table class="table table-striped table-hover">
+        <h1 class="text-center mb-4">Player List</h1>
+        <table class="table">
             <thead class="thead-dark">
                 <tr>
                     <th>Player Head</th>
@@ -167,80 +207,12 @@
         </table>
     </div>
 
-    <!-- World Stats Section -->
-    <div class="container my-5">
-        <h2 class="text-center mb-4">World Stats</h2>
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Total Players Online</h5>
-                        <p class="card-text"><strong><span id="live-player-count">Loading...</span></strong> / <strong><span id="max-players">Loading...</span></strong></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Uptime</h5>
-                        <p class="card-text"><strong><span id="uptime">Loading...</span></strong></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Minecraft Version</h5>
-                        <p class="card-text">Version: <strong>{{ minecraft_version }}</strong></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- Online Player List -->
-    <div class="container my-5">
-        <h2 class="text-center mb-4">Online Players</h2>
-        <div class="row">
-            <div class="col-md-6 mx-auto">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title text-center">Currently Online</h5>
-                        <div id="online-players-box">
-                            <p class="text-center">Loading online players...</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Server Information Section -->
-    <div class="container my-5">
-        <h2 class="text-center mb-4">Server Information</h2>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Server Name</h5>
-                        <p class="card-text">Minecraft Adventure World</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Server IP</h5>
-                        <p class="card-text">mc.example.com</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Footer -->
     <footer class="bg-dark text-white text-center py-3 mt-5">
-        <p>&copy; 2024 StatCrafter. All Rights Reserved.</p>
+        <p>Powered by StatCrafter</p>
+        <p>&copy; 2024 {{ config['server_name'] }}. All Rights Reserved.</p>
     </footer>
 
     <!-- Bootstrap JS and Popper.js -->

@@ -30,25 +30,10 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Minecraft Server Stats</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
-                    </li>
-                </ul>
-            </div>
+            <a class="navbar-brand" href="{{ url_for('index') }}">{{ config['server_name'] }}</a>
         </div>
     </nav>
+
 
     <!-- Page Header -->
     <div class="container text-center">
@@ -62,7 +47,7 @@
         <table class="table table-striped table-hover">
             <thead class="thead-dark">
                 <tr>
-                    <th>Icon</th>
+                    <!-- <th>Icon</th> -->
                     <th>Name</th>
                     <th>Description</th>
                     
@@ -71,10 +56,10 @@
             <tbody>
                 {% for advancement, data in advancements['multi_part_advancements'].items() %}
                 <tr>
-                    <td>
-                        <img src="{{ url_for('static', filename='advancements/' + data.get('icon', 'default-icon.png')) }}" 
+                    <!-- <td>
+                        <img src="{{ url_for('static', filename='advancements/' 'default-icon' + '.png') }}" 
                              alt="Icon" class="advancement-icon">
-                    </td>
+                    </td> -->
                     <td>
                         <strong>{{ data.title }}</strong><br>
                         
@@ -126,7 +111,7 @@
 
     <!-- Footer -->
     <footer class="bg-dark text-white text-center py-3 mt-5">
-        <p>&copy; 2024 Minecraft Stats. All Rights Reserved.</p>
+        <p>&copy; 2024 {{ config['server_name'] }}. All Rights Reserved.</p>
     </footer>
 
     <!-- Bootstrap JS and Popper.js -->

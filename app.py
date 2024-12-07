@@ -115,6 +115,11 @@ def load_advancements(player_uuid):
     except FileNotFoundError:
         return None
 
+
+with open('StatCrafterConfig.json') as config_file:
+    config_data = json.load(config_file)
+
+    
 # Server Clock
 def calculate_uptime():
     """Calculate and return the server's uptime as a string."""
@@ -283,7 +288,7 @@ def index():
     level_dat_path = os.path.join("../world/", "level.dat")
     minecraft_version = get_minecraft_version(level_dat_path)
     players = load_data()
-    return render_template('index.html', players=players, minecraft_version=minecraft_version)
+    return render_template('index.html', players=players, minecraft_version=minecraft_version, config=config_data)
 
 # @app.route('/output_data')
 # def output_data():
@@ -314,7 +319,7 @@ def player_page(uuid):
         print(f"Stats file not found for {uuid}, using default.")
     
     advancements = load_advancements(uuid)
-    return render_template('player.html', player=player, stats=stats, advancements=advancements)
+    return render_template('player.html', player=player, stats=stats, advancements=advancements, config=config_data)
 
 @app.route('/player/<uuid>/advancements')
 def player_advancements(uuid):
@@ -326,7 +331,7 @@ def player_advancements(uuid):
     # Load the advancements for the player
     advancements = load_advancements(uuid)
     
-    return render_template('advancements.html', player=player, advancements=advancements)
+    return render_template('advancements.html', player=player, advancements=advancements, config=config_data)
 
 
 if __name__ == "__main__":
